@@ -1,12 +1,12 @@
 \documentclass{jlreq}
 \usepackage{graphicx,tcolorbox,diffcoeff}
-\usepackage{amsmath,,amsthm}
+\usepackage{amsmath,amsthm}
 \usepackage{unicode-math}
 \setmathfont{NewComputerModernMath}
 \usepackage[thicklines]{cancel}
 \usepackage{color}
 \renewcommand{\CancelColor}{\color[rgb]{0.7,0,0}}
-\newtcolorbox{simplebox}[1]{
+\newtcolorbox{teiri}[1]{
   colframe=black,
   colback=white,
   coltitle=black,
@@ -16,8 +16,79 @@
   title={\textbf{#1}},
 }
 
+\difdef { f, fp, s, sp } { | }
+{
+outer-Ldelim
+= \left . ,
+outer-Rdelim = \right |,
+sub-nudge
+= 0 mu
+}
+
+
 \begin{document}
 
+\begin{align*}
+  δS[q]
+  :=&S[q+ε]+S[q]\\
+  =&\int_{t_i}^{t_f} \dl{t}
+    (L(q(t)+ε(t), \dot{q}(t)+ \dot{ε}(t),t)-L(q(t), \dot{q}(t),t))\\ 
+  =&\int_{t_i}^{t_f} \dl{t}
+    \Biggl(
+      ε(t) \diffp.|.{L(q,\dot{q}(t),t)}{q}[q=q(t)]
+      + \underbrace{\dot{ε}(t) \diffp.|.{L(q(t),\dot{q},t)}{\dot{q}}[\dot{q}=\dot{q}(t)]}_{\text{ここを部分積分}} 
+    \Biggr)+ 𝒪(ε ^2)\\
+  =&\int_{t_i}^{t_f} \dl{t} \, ε(t)
+    \Biggl(
+      \diffp{L(q(t),\dot{q}(t),t)}{q(t)} - \diff**t{\diffp{L(q(t),\dot{q}(t),t)}{\dot{q}(t)}[]}
+    \Biggr)\\
+    &+\cancel{ε(t_f)}\diffp.|.{L(q(t),\dot{q}(t),t)}{ \dot{q}(t)}[t=t_f] + \cancel{ε(t_i)} \diffp.|.{L(q(t),\dot{q}(t),t)}{ \dot{q}(t)}[t=t_i]+ 𝒪(ε ^2)
+\end{align*}
 
+\( ε(t_i)=ε(t_f)=0 \)を仮定している。
+\( S[q] \)が停留となる条件は、
+\begin{equation}
+  \diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}(t)}} = \diffp{L(q(t), \dot{q}(t),t)}{q(t)}
+\end{equation}
+となる。
+
+\begin{teiri}{オイラー・ラグランジュ方程式（Euler-Lshrange equation）}
+  \( ε(t_i)=ε(t_f)=0 \)となる変分に対して作用 \( S[q] \)が停留となる条件は
+  \begin{equation}
+    \diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}_i(t)}} = \diffp{L(q(t), \dot{q}(t),t)}{q_i(t)}\quad (\forall i=1,2, \ldots, N)
+  \end{equation} 
+  \hrulefill
+  
+  {\footnotesize 雑に書けば\( \difc{ \difcp{L}{\dot{q}}}{t} = \difcp{L}{q}\) }
+\end{teiri} 
+
+
+\subsection{\( 𝒪(ε ^2)\)についての補足}  
+教科書には、 \( g(t_i)=g(t_f)=0 \)を満たす関数 \( g(t) \)  をとって
+\( ε(t)= ηg(t) \)としたとき \( 𝒪(η ^2) \) とある。
+この例をメモしておく。
+\begin{align*}
+  &\int \dl{t} (ε ^2(t)F_1(t) + ε ^3(t)F_2(t)+\cdots ) \\
+  =&\int \dl{t} (η ^2g(t)F_1(t) + η ^3g(t)(t)F_2(t)+\cdots )\\ 
+  =&η ^2\int \dl{t} (g(t)F_1(t) + η g(t)F_2(t)+\cdots )\\ 
+  =& 𝒪(η ^2)
+\end{align*}
+微分積分の線形性から先程の雑なオーダーが使えている事がわかる。 
+
+\begin{align*}
+  δS[q]
+  :=&S[q+ε]+S[q]\\
+  =&\int_{t_i}^{t_f} \dl{t}
+    (L(q+ε, \dot{q}+ \dot{ε},t)-L(q, \dot{q},t))\\ 
+  =&\int_{t_i}^{t_f} \dl{t}
+    \Biggl(
+      ε\diffp{L}{q}+\dot{ε}\diffp{L}{\dot{q}}
+    \Biggr)+ 𝒪(ε ^2)\\
+  =&\int_{t_i}^{t_f} \dl{t} \, ε
+    \Biggl(
+      \diffp{L}{q} - \diff**t{\diffp{L}{\dot{q}}[]}
+    \Biggr)+ 𝒪(ε ^2)
+\end{align*}
+ 
 
 \end{document}
