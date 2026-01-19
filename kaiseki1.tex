@@ -30,7 +30,7 @@ sub-nudge
 
 \begin{align*}
   δS[q]
-  :=&S[q+ε]+S[q]\\
+  :=&S[q+ε]-S[q]\\
   =&\int_{t_i}^{t_f} \dl{t}
     \big[L(q(t)+ε(t), \dot{q}(t)+ \dot{ε}(t),t)-L(q(t), \dot{q}(t),t)\big]\\ 
   =&\int_{t_i}^{t_f} \dl{t}
@@ -52,7 +52,7 @@ sub-nudge
 \end{equation}
 となる。
 
-\begin{teiri}{オイラー・ラグランジュ方程式（Euler-Lshrange equation）}
+\begin{teiri}{オイラー・ラグランジュ方程式（Euler-Lagrange equation）}
   \( ε(t_i)=ε(t_f)=0 \)となる変分に対して作用 \( S[q] \)が停留となる条件は
   \begin{equation}
     \diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}_i(t)}} = \diffp{L(q(t), \dot{q}(t),t)}{q_i(t)}\quad (\forall i=1,2, \ldots, N)
@@ -89,7 +89,50 @@ sub-nudge
       \diffp{L}{q} - \diff**t{\diffp{L}{\dot{q}}[]}
     \Biggr]+ 𝒪(ε ^2)
 \end{align*}
- 
+\footnote{あんまりに煩雑だったので、時間微分のドットを \( i \)階微分のとき \( \overset{i}{q}\)  のように表した。表記ブレブレでごめんね}
+\section{一般のEuler-Lagrange equation}
+最初に、 \( L(q, \dot{q}, \ddot{q},t) \)について考えてその後一般化する。
+\begin{align*}
+  δS
+  =&\int_{t_i}^{t_f} \dl{t}
+    \left( 
+      \diffp{L}{q} ε + \diffp{L}{\dot{q}} \dot{ε} + \diffp{L}{q} \ddot{ε} 
+    \right)+ 𝒪(ε^2)\\
+  =&\int_{t_i}^{t_f} \dl{t} 
+    \left( 
+      \diffp{L}{q}ε- \diff**t{\diffp{L}{\dot{q}}[]}ε-\diff**t{\diffp{L}{\ddot{q}}[]} \dot{ε}
+     \right) + ε\diffp{L}{\dot{q}}\bigg|_{t_i}^{t_f} + \dot{ε} \diffp{L}{\ddot{q}}\bigg|_{t_i}^{t_f} + 𝒪(ε^2)\\
+  =&\int_{t_i}^{t_f} \dl{t} ε
+    \left( 
+      \diffp{L}{q}- \diff**t{\diffp{L}{\dot{q}}[]}+\diff**[2]t{\diffp{L}{\ddot{q}}[]} 
+     \right)+ ε\diffp{L}{\dot{q}}\bigg|_{t_i}^{t_f}
+      + \dot{ε} \diffp{L}{\ddot{q}}\bigg|_{t_i}^{t_f} - ε \diff**t{\diffp{L}{\ddot{q}}[]} \bigg|_{t_i}^{t_f}+𝒪(ε^2)
+\end{align*}
 
+\begin{teiri}{Euler-Lagrange equation 引数 \( (q, \dot{q}, \ddot{q},t) \) }
+  \( ε(t_i)=ε(t_f)=0 ,\dot{ε}(t_i)= \dot{ε}(t_f)=0 \)となる変分に対して作用 \( S[q] \)が停留となる条件は
+  \begin{equation}
+    \diffp{L}{q}- \diff**t{\diffp{L}{\dot{q}}[]}+\diff**[2]t{\diffp{L}{\ddot{q}}[]}=0 %\quad (\forall i=1,2, \ldots, N)
+  \end{equation} 
+\end{teiri} 
+
+次に、 \( L(q, \dot{q}, \ldots, \overset{n}{q} ,t) \)について考える。
+
+\begin{align*}
+  δS
+  =&\int_{t_i}^{t_f} 
+    \sum_{i=0}^{n} \diffp{L}{\overset{i}{q} } \overset{i}{ε}  \dl{t} + 𝒪(ε^2)\\
+  =&\int_{t_i}^{t_f}ε
+    \left( \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{\overset{i}{q}}[]}  \right) \dl{t} 
+    + \sum_{i=1}^{n} \sum_{j=1}^{i}(-1)^{j+1} \overset{i-j}{ε} \diff**[j-1]t{\diffp{L}{ \overset{i}{q}}[]} \Bigg|_{t_i}^{t_f} + 𝒪(ε^2) 
+\end{align*}
+
+\begin{teiri}{一般のEuler-Lagrange equation}
+   \( ε(t_i)=ε(t_f)=0 , \dot{ε}(t_i)= \dot{ε}(t_f)=0 ,\ldots, \overset{n}{ε}(t_i)=\overset{n}{ε}(t_f)=0  \)
+   となる変分に対して、作用 \( S[q] \)が停留となる条件は 
+  \begin{equation}
+    \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{ \diff[i]{q}{t}}[]} =0
+  \end{equation}
+\end{teiri}
 
 \end{document}
