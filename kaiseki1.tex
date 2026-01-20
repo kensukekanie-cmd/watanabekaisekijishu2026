@@ -11,15 +11,6 @@
 \usepackage[thicklines]{cancel}
 \usepackage{xcolor}
 \renewcommand{\CancelColor}{\color{red!60!black}}
-\newtcolorbox{teiri}[1]{
-  colframe=black,
-  colback=white,
-  coltitle=black,
-  colbacktitle=cyan!40!black,
-  boxrule=0.8pt,
-  arc=0mm,
-  title={\textcolor{white}{\textbf{#1}}},
-}
 
 \difdef { f, fp, s, sp } { | }
 {
@@ -29,19 +20,71 @@ outer-Rdelim = \right |,
 sub-nudge
 = 0 mu
 }
-
+\usepackage{hyperref}
 \title{解析力学自主ゼミ第一回\\
  ～ニュートン力学と変分法～}
 \author{蟹江}
-\date{\today}
+\date{2026年2月7日}
 \begin{document}
 
 \begin{frame}
   \maketitle
 \end{frame}
 
+\begin{frame}{作用・反作用の法則}
+  \begin{block}{強い意味での作用・反作用の法則}
+    \begin{equation}
+      \symbfit{f} _{ij}(t)=-\symbfit{f} _{ji}(t) \propto \symbfit{r} _{i}(t)-\symbfit{r} _j (t)  
+    \end{equation}
+  \end{block}
+  \vspace{1\baselineskip}
+  比例まで含めると\alert{強い意味}での作用・反作用の法則で、
+  適当なポテンシャルを考えるときに成立しない。
+\end{frame}
+
+\begin{frame}{関数の停留値問題}
+  1変数関数 \( S(q) \)について\alert{停留点}とは、
+  \begin{equation}
+    δS:=S(q+ε)-S(q)= 𝒪(ε^2)
+  \end{equation}
+  を満たす\( q \)のことである。
+  \uncover<2->{
+    \begin{equation}
+      S(q+ε)= S(q)+ ε \diff{S(q)}{q} +\frac{1}{2}ε^2 \diff[2]{S(q)}{q}+\cdots 
+      \label{ititaylor}
+    \end{equation}
+  }
+  \uncover<2->{式\eqref{ititaylor}より \( \alert{\difs{S(q)}{q}=0} \)のときに停留点となることがわかる }
+\end{frame}
+
+\begin{frame}{多変数}
+  \( S(q):=S(q_1, \ldots, q_N) \)について停留点を考えるとき、
+  \begin{equation}
+    δS(q)= \sum_{i=1}^{N} ε_i \diffp{S(q)}{q_i} + \frac{1}{2} \sum_{i,j=1}^{N} ε_i ε_j \diffp{S(q)}{q_i,q_j}+\cdots
+    \label{tahentaylo}  
+  \end{equation}
+
+  \vspace{1\baselineskip}
+  \uncover<2->{式\eqref{tahentaylo}より停留点を取るときの必要十分条件をは、
+  \begin{equation}
+    \diffp{S(q)}{q_i}=0 \quad (\forall i=1,2, \ldots, N)
+  \end{equation}}
+\end{frame}
+
+\begin{frame}{汎関数における停留}
+  関数\( q \)を1つ定めると値が対応する、\alert{汎関数} \(S[q] \) について考える
+  \begin{equation}
+    S[q]=\int_{t_i}^{t_f} \dl{t} L(q(t), \dot{q}(t),t) 
+  \end{equation}
+  この汎関数は \alert{作用}と呼ばれている。
+\end{frame}
+
 \begin{frame}
-  \frametitle{ざっくりとした導出}
+  \Huge \textbf{汎関数も停留を考えたい！}
+\end{frame}
+
+\begin{frame}
+  \frametitle{汎関数の停留（ざっくり）}
   \begin{align*}
   δS[q]
   :=&S[q+ε]+S[q]\\
@@ -54,7 +97,7 @@ sub-nudge
   =&\int_{t_i}^{t_f} \dl{t} \, ε
     \Biggl[
       \diffp{L}{q} - \diff**t{\diffp{L}{\dot{q}}[]}
-    \Biggr]+ 𝒪(ε ^2)
+    \Biggr]+ \only<1>{ε} \only<2>{\xcancel{ε}} \diffp{L}{ \dot{q}}\bigg|_{t_i}^{t_f}  + 𝒪(ε ^2)
 \end{align*}
 \end{frame}
 
@@ -63,6 +106,7 @@ sub-nudge
     \( ε(t_i)=ε(t_f)=0 \)となる変分に対して作用 \( S[q] \)が停留となる条件は
     \begin{equation}
       \diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}_i(t)}} = \diffp{L(q(t), \dot{q}(t),t)}{q_i(t)}\quad (\forall i=1,2, \ldots, N)
+      \label{ELeq}
     \end{equation} 
   \end{block}
    雑に書けば\( \difc{ \difcp{L}{\dot{q}}}{t} = \difcp{L}{q}\)
@@ -117,7 +161,7 @@ sub-nudge
   =&η ^2\int \dl{t} (g(t)F_1(t) + η g(t)F_2(t)+\cdots )\\ 
   =& 𝒪(η ^2)
   \end{align*}
-  \uncover<2->{微分積分の線形性から先程の雑なオーダーが使えている事がわかる}
+  \uncover<2->{微分積分の\alert{線形性}から先程の雑なオーダーが使えている事がわかる}
 \end{frame}
 
 \begin{frame}
@@ -159,8 +203,8 @@ sub-nudge
   =&\int_{t_i}^{t_f} 
     \sum_{i=0}^{n} \diffp{L}{\overset{i}{q} } \overset{i}{ε}  \dl{t} + 𝒪(ε^2)\\
   =&\int_{t_i}^{t_f}ε
-    \left( \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{\overset{i}{q}}[]}  \right) \dl{t} 
-    + \sum_{i=1}^{n} \sum_{j=1}^{i}(-1)^{j+1} \overset{i-j}{ε} \diff**[j-1]t{\diffp{L}{ \overset{i}{q}}[]} \Bigg|_{t_i}^{t_f} + 𝒪(ε^2) 
+    \left( \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{\overset{i}{q}}[]}  \right) \dl{t} \\
+    &+\only<1>{ \sum_{i=1}^{n} \sum_{j=1}^{i}(-1)^{j+1} \overset{i-j}{ε} \diff**[j-1]t{\diffp{L}{ \overset{i}{q}}[]} \Bigg|_{t_i}^{t_f}} \only<2>{\cancel{ \sum_{i=1}^{n} \sum_{j=1}^{i}(-1)^{j+1} \overset{i-j}{ε} \diff**[j-1]t{\diffp{L}{ \overset{i}{q}}[]} \Bigg|_{t_i}^{t_f}}}+ 𝒪(ε^2) 
   \end{align*}
     あんまりに煩雑だったので、時間微分のドットを \( i \)階微分のとき \( \overset{i}{q}\)  のように表した。表記ブレブレでごめんね
 \end{frame}
@@ -170,14 +214,61 @@ sub-nudge
      \( ε(t_i)=ε(t_f)=0 , \dot{ε}(t_i)= \dot{ε}(t_f)=0 ,\ldots, \overset{n-1}{ε}(t_i)=\overset{n-1}{ε}(t_f)=0  \)
    となる変分に対して、作用 \( S[q] \)が停留となる条件は 
   \begin{equation}
-    \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{ \diff[i]{q}{t}}[]} =0
+    \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{ \diff[i]{q}{t}}[]} =
   \end{equation}
 \end{frame}
 
-\begin{frame}
-  \begin{align*}
-    \exp x= \sum_{n=0}^{\infty} \frac{1}{n!}x^n 
-  \end{align*}
+\begin{frame}{エネルギーの定義}
+  \begin{block}{エネルギー}
+    ラグランジアンが \( L(q, \dot{q},t) \) で与えられる系のエネルギーは
+    \begin{equation}
+      E(t):=\sum_{i=1}^{n} \dot{q}_i \diffp{L}{ \dot{q}_i} - L 
+    \end{equation}
+    と定義される。
+  \end{block}
+
 \end{frame}
 
+\begin{frame}{エネルギーが保存する条件}
+  \begin{align*}
+    \diff{E(t)}{t}
+    =&\sum_{i=1}^{N} \left( \dot{q}_i \diff**t{ \diffp{L}{ \dot{q}_i}} \only<1>{+\ddot{q}_i(t) \diffp{L}{ \dot{q}_i} } \only<2>{ +\cancel{\ddot{q}_i(t) \diffp{L}{ \dot{q}_i}  }}\right)\only<1-2>{\\}
+     \only<1-2>{&}-\sum_{i=1}^{N} \left( \dot{q}_i \diffp{L}{q_i}+ \only<1>{+\ddot{q}_i(t) \diffp{L}{ \dot{q}_i} } \only<2>{ +\cancel{\ddot{q}_i(t) \diffp{L}{ \dot{q}_i} }}\right)- \diffp{L}{t} \\
+    \uncover<3->{=& \sum_{i=1}^{N} \dot{q}_i  \Bigg(\underbrace{\diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}(t)}} - \diffp{L(q(t), \dot{q}(t),t)}{q(t)}}_{\text{Euler-Lagrange equation}}\Bigg)- \diffp{L}{t}\\ }
+    \uncover<4->{=& -\diffp{L}{t}}
+  \end{align*}
+  \uncover<5->{ラグランジアンが\alert{陽に}時間依存しないときエネルギーは保存される。}
+\end{frame}
+
+\begin{frame}{ある座標に陽に依存しない場合の保存量}
+  \( p_i(t):= \difsp{L}{\dot{q}_i} \)を定義したとき
+  \begin{equation}
+    \diff**t{} p_i(t) = \diff**t{ \diffp{L}{ \dot{q}_i}[]} = \diffp{L}{q_i} \quad (\because \text{Euler-Lagrange equation})
+  \end{equation} 
+  \uncover<2->{ラグランジアンがある座標 \( q_i \)に陽に依存しないとき、対応する \( p_i \)（\alert{循環座標}）が保存される。 } 
+\end{frame}
+
+\begin{frame}{ラグランジアンの存在条件}
+  式\eqref{ELeq}の時間微分を実行すると
+  \begin{equation}
+    \mathcal{D}_i:=\sum_{i=j}^{N} \diffp{L}{ \dot{q}_j,\dot{q}_i} \ddot{q}_j +\sum_{j=1}^{N} \diffp{L}{q_j, \dot{q}_i} \dot{q}_j + \diffp{L}{t, \dot{q}_i} - \diffp{L}{q_i}=0
+  \end{equation}
+  という微分方程式になる
+
+  \vspace{1\baselineskip}
+  \uncover<2->{この微分方程式の解はいつでも存在する...？}
+\end{frame}
+
+\begin{frame}{ラグランジアンの存在条件}
+  \begin{block}{ヘルムホルツ条件}
+    微分方程式 \( \mathcal{D}_i(q, \dot{q}, \ddot{q},t) =0 \quad (i=1,2, \ldots, N)\)が与えられたとき、
+    これを導くラグランジアンが存在するための必要十分条件は、すべての
+    \( i,j=1,2, \ldots, N \)  に対して次の関係が成立することである。
+    \begin{gather}
+      \diffp{\mathcal{D}_i}{ \ddot{q}_j}=\diffp{\mathcal{D}_j}{ \ddot{q}_i}\\
+      \frac{1}{2}\left( \diffp{\mathcal{D}_i}{ \dot{q}_j}+ \diffp{\mathcal{D}_j}{ \dot{q}_i}\right) = \diff**t{ \diffp{\mathcal{D}_i}{ \ddot{q}_j}}\\
+      \diffp{\mathcal{D}_i}{q_j} - \diffp{\mathcal{D}_j}{q_i}= \frac{1}{2} \diff**t{ \diffp{\mathcal{D}_i}{ \dot{q}_j}-\diffp{\mathcal{D}_j}{ \dot{q}_i}[]} 
+    \end{gather}
+  \end{block}
+\end{frame}
 \end{document}

@@ -5,3 +5,6 @@
 *.gz
 kaiseki1.synctex.gz.sum.synctex
 *.synctex
+*.nav
+*.snm
+*.toc
