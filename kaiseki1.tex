@@ -1,4 +1,9 @@
-\documentclass{jlreq}
+\documentclass{beamer}
+\usepackage{luatexja}
+%\renewcommand{\kanjifamilydefault}{\gtdefault}
+%これは不便が出るまでは有効化しません
+%\usetheme{metropolis}
+\usetheme[block=fill]{metropolis}
 \usepackage{graphicx,tcolorbox,diffcoeff}
 \usepackage{amsmath,amsthm}
 \usepackage{unicode-math}
@@ -25,57 +30,19 @@ sub-nudge
 = 0 mu
 }
 
-
+\title{解析力学自主ゼミ第一回\\
+ ～ニュートン力学と変分法～}
+\author{蟹江}
+\date{\today}
 \begin{document}
 
-\begin{align*}
-  δS[q]
-  :=&S[q+ε]-S[q]\\
-  =&\int_{t_i}^{t_f} \dl{t}
-    \big[L(q(t)+ε(t), \dot{q}(t)+ \dot{ε}(t),t)-L(q(t), \dot{q}(t),t)\big]\\ 
-  =&\int_{t_i}^{t_f} \dl{t}
-    \Biggl[
-      ε(t) \diffp.|.{L(q,\dot{q}(t),t)}{q}[q=q(t)]
-      + \underbrace{\dot{ε}(t) \diffp.|.{L(q(t),\dot{q},t)}{\dot{q}}[\dot{q}=\dot{q}(t)]}_{\text{ここを部分積分}} 
-    \Biggr]+ 𝒪(ε ^2)\\
-  =&\int_{t_i}^{t_f} \dl{t} \, ε(t)
-    \Biggl[
-      \diffp{L(q(t),\dot{q}(t),t)}{q(t)} - \diff**t{\diffp{L(q(t),\dot{q}(t),t)}{\dot{q}(t)}[]}
-    \Biggr]\\
-    &+\xcancel{ε(t_f)}\diffp.|.{L(q(t),\dot{q}(t),t)}{ \dot{q}(t)}[t=t_f] - \xcancel{ε(t_i)} \diffp.|.{L(q(t),\dot{q}(t),t)}{ \dot{q}(t)}[t=t_i]+ 𝒪(ε ^2)
-\end{align*}
+\begin{frame}
+  \maketitle
+\end{frame}
 
-\( ε(t_i)=ε(t_f)=0 \)を仮定している。
-\( S[q] \)が停留となる条件は、
-\begin{equation}
-  \diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}(t)}} = \diffp{L(q(t), \dot{q}(t),t)}{q(t)}
-\end{equation}
-となる。
-
-\begin{teiri}{オイラー・ラグランジュ方程式（Euler-Lagrange equation）}
-  \( ε(t_i)=ε(t_f)=0 \)となる変分に対して作用 \( S[q] \)が停留となる条件は
-  \begin{equation}
-    \diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}_i(t)}} = \diffp{L(q(t), \dot{q}(t),t)}{q_i(t)}\quad (\forall i=1,2, \ldots, N)
-  \end{equation} 
-  \hrulefill
-
-  {\footnotesize 雑に書けば\( \difc{ \difcp{L}{\dot{q}}}{t} = \difcp{L}{q}\) }
-\end{teiri} 
-
-
-\subsection{\( 𝒪(ε ^2)\)についての補足}  
-教科書には、 \( g(t_i)=g(t_f)=0 \)を満たす関数 \( g(t) \)  をとって
-\( ε(t)= ηg(t) \)としたとき \( 𝒪(η ^2) \) とある。
-この例をメモしておく。
-\begin{align*}
-  &\int \dl{t} (ε ^2(t)F_1(t) + ε ^3(t)F_2(t)+\cdots ) \\
-  =&\int \dl{t} (η ^2g(t)F_1(t) + η ^3g(t)(t)F_2(t)+\cdots )\\ 
-  =&η ^2\int \dl{t} (g(t)F_1(t) + η g(t)F_2(t)+\cdots )\\ 
-  =& 𝒪(η ^2)
-\end{align*}
-微分積分の線形性から先程の雑なオーダーが使えている事がわかる。 
-
-\begin{align*}
+\begin{frame}
+  \frametitle{ざっくりとした導出}
+  \begin{align*}
   δS[q]
   :=&S[q+ε]+S[q]\\
   =&\int_{t_i}^{t_f} \dl{t}
@@ -89,10 +56,73 @@ sub-nudge
       \diffp{L}{q} - \diff**t{\diffp{L}{\dot{q}}[]}
     \Biggr]+ 𝒪(ε ^2)
 \end{align*}
-\footnote{あんまりに煩雑だったので、時間微分のドットを \( i \)階微分のとき \( \overset{i}{q}\)  のように表した。表記ブレブレでごめんね}
-\section{一般のEuler-Lagrange equation}
-最初に、 \( L(q, \dot{q}, \ddot{q},t) \)について考えてその後一般化する。
-\begin{align*}
+\end{frame}
+
+\begin{frame} 
+  \begin{block}{オイラー・ラグランジュ方程式（Euler-Lagrange equation）}
+    \( ε(t_i)=ε(t_f)=0 \)となる変分に対して作用 \( S[q] \)が停留となる条件は
+    \begin{equation}
+      \diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}_i(t)}} = \diffp{L(q(t), \dot{q}(t),t)}{q_i(t)}\quad (\forall i=1,2, \ldots, N)
+    \end{equation} 
+  \end{block}
+   雑に書けば\( \difc{ \difcp{L}{\dot{q}}}{t} = \difcp{L}{q}\)
+\end{frame}
+
+\begin{frame}
+  \frametitle{オイラーラグランジュ方程式の導出}
+  \begin{align*}
+  δS[q]
+  :=&S[q+ε]-S[q]\\
+  =&\int_{t_i}^{t_f} \dl{t}
+    \big[L(q(t)+ε(t), \dot{q}(t)+ \dot{ε}(t),t)-L(q(t), \dot{q}(t),t)\big]\\ 
+  =&\int_{t_i}^{t_f} \dl{t}
+    \Biggl[
+      ε(t) \diffp.|.{L(q,\dot{q}(t),t)}{q}[q=q(t)]
+      + \underbrace{\dot{ε}(t) \diffp.|.{L(q(t),\dot{q},t)}{\dot{q}}[\dot{q}=\dot{q}(t)]}_{\text{ここを部分積分}} 
+    \Biggr]\\
+    &+ 𝒪(ε ^2)\\
+    \uncover<2->{=&\int_{t_i}^{t_f} \dl{t} \, ε(t)
+    \Biggl[
+      \diffp{L(q(t),\dot{q}(t),t)}{q(t)} - \diff**t{\diffp{L(q(t),\dot{q}(t),t)}{\dot{q}(t)}[]}
+    \Biggr]\\
+    &+\xcancel{ε(t_f)}\diffp.|.{L(q(t),\dot{q}(t),t)}{ \dot{q}(t)}[t=t_f] - \xcancel{ε(t_i)} \diffp.|.{L(q(t),\dot{q}(t),t)}{ \dot{q}(t)}[t=t_i]\\
+    &+ 𝒪(ε ^2)}
+\end{align*}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{オイラーラグランジュ方程式の導出}
+  \( ε(t_i)=ε(t_f)=0 \)を仮定している。
+  \( S[q] \)が停留となる条件は、
+  \begin{equation}
+    \diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}(t)}} = \diffp{L(q(t), \dot{q}(t),t)}{q(t)}
+  \end{equation}
+  となる。
+\end{frame}
+
+
+
+
+
+\begin{frame}
+  \frametitle{\( 𝒪(ε^2)\)についての補足}
+  教科書だけでは分かりづらいため、具体例を示す。\\
+  \( g(t_i)=g(t_f)=0 \)を満たす関数 \( g(t) \)  をとって
+  \( ε(t)= ηg(t) \)としたとき
+  \begin{align*}
+  &\int \dl{t} (ε ^2(t)F_1(t) + ε ^3(t)F_2(t)+\cdots ) \\
+  =&\int \dl{t} (η ^2g(t)F_1(t) + η ^3g(t)(t)F_2(t)+\cdots )\\ 
+  =&η ^2\int \dl{t} (g(t)F_1(t) + η g(t)F_2(t)+\cdots )\\ 
+  =& 𝒪(η ^2)
+  \end{align*}
+  \uncover<2->{微分積分の線形性から先程の雑なオーダーが使えている事がわかる}
+\end{frame}
+
+\begin{frame}
+  \frametitle{ \( L(q, \dot{q}, \ddot{q},t) \)のEuler-Lagrange equation}
+  \begin{align*}
   δS
   =&\int_{t_i}^{t_f} \dl{t}
     \left( 
@@ -101,38 +131,53 @@ sub-nudge
   =&\int_{t_i}^{t_f} \dl{t} 
     \left( 
       \diffp{L}{q}ε- \diff**t{\diffp{L}{\dot{q}}[]}ε-\diff**t{\diffp{L}{\ddot{q}}[]} \dot{ε}
-     \right) + ε\diffp{L}{\dot{q}}\bigg|_{t_i}^{t_f} + \dot{ε} \diffp{L}{\ddot{q}}\bigg|_{t_i}^{t_f} + 𝒪(ε^2)\\
+     \right)\\
+     & + ε\diffp{L}{\dot{q}}\bigg|_{t_i}^{t_f} + \dot{ε} \diffp{L}{\ddot{q}}\bigg|_{t_i}^{t_f} + 𝒪(ε^2)\\
   =&\int_{t_i}^{t_f} \dl{t} ε
     \left( 
       \diffp{L}{q}- \diff**t{\diffp{L}{\dot{q}}[]}+\diff**[2]t{\diffp{L}{\ddot{q}}[]} 
-     \right)+ ε\diffp{L}{\dot{q}}\bigg|_{t_i}^{t_f}
-      + \dot{ε} \diffp{L}{\ddot{q}}\bigg|_{t_i}^{t_f} - ε \diff**t{\diffp{L}{\ddot{q}}[]} \bigg|_{t_i}^{t_f}+𝒪(ε^2)
-\end{align*}
-
-\begin{teiri}{Euler-Lagrange equation 引数 \( (q, \dot{q}, \ddot{q},t) \) }
-  \( ε(t_i)=ε(t_f)=0 ,\dot{ε}(t_i)= \dot{ε}(t_f)=0 \)となる変分に対して作用 \( S[q] \)が停留となる条件は
+     \right)\\
+     &+ ε\diffp{L}{\dot{q}}\bigg|_{t_i}^{t_f}
+      + \dot{ε} \diffp{L}{\ddot{q}}\bigg|_{t_i}^{t_f} - ε \diff**t{\diffp{L}{\ddot{q}}[]} \bigg|_{t_i}^{t_f}
+      +𝒪(ε^2)
+  \end{align*}
+\end{frame}
+ 
+\begin{frame}
+  \begin{block}{Euler-Lagrange equation 引数 \( (q, \dot{q}, \ddot{q},t) \)}
+   \( ε(t_i)=ε(t_f)=0 ,\dot{ε}(t_i)= \dot{ε}(t_f)=0 \)となる変分に対して作用 \( S[q] \)が停留となる条件は
   \begin{equation}
-    \diffp{L}{q}- \diff**t{\diffp{L}{\dot{q}}[]}+\diff**[2]t{\diffp{L}{\ddot{q}}[]}=0 %\quad (\forall i=1,2, \ldots, N)
+    \diffp{L}{q}- \diff**t{\diffp{L}{\dot{q}}[]}+\diff**[2]t{\diffp{L}{\ddot{q}}[]}=0 
   \end{equation} 
-\end{teiri} 
+  \end{block}
+\end{frame}
 
-次に、 \( L(q, \dot{q}, \ldots, \overset{n}{q} ,t) \)について考える。
-
-\begin{align*}
+\begin{frame}
+  \frametitle{\( L(q, \dot{q}, \ldots, \overset{n}{q} ,t) \)のEuler-Lagrange equation}
+  \begin{align*}
   δS
   =&\int_{t_i}^{t_f} 
     \sum_{i=0}^{n} \diffp{L}{\overset{i}{q} } \overset{i}{ε}  \dl{t} + 𝒪(ε^2)\\
   =&\int_{t_i}^{t_f}ε
     \left( \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{\overset{i}{q}}[]}  \right) \dl{t} 
     + \sum_{i=1}^{n} \sum_{j=1}^{i}(-1)^{j+1} \overset{i-j}{ε} \diff**[j-1]t{\diffp{L}{ \overset{i}{q}}[]} \Bigg|_{t_i}^{t_f} + 𝒪(ε^2) 
-\end{align*}
+  \end{align*}
+    あんまりに煩雑だったので、時間微分のドットを \( i \)階微分のとき \( \overset{i}{q}\)  のように表した。表記ブレブレでごめんね
+\end{frame}
 
-\begin{teiri}{一般のEuler-Lagrange equation}
-   \( ε(t_i)=ε(t_f)=0 , \dot{ε}(t_i)= \dot{ε}(t_f)=0 ,\ldots, \overset{n}{ε}(t_i)=\overset{n}{ε}(t_f)=0  \)
+\begin{frame}
+  \frametitle{一般のEuler-Lagrange equation}
+     \( ε(t_i)=ε(t_f)=0 , \dot{ε}(t_i)= \dot{ε}(t_f)=0 ,\ldots, \overset{n-1}{ε}(t_i)=\overset{n-1}{ε}(t_f)=0  \)
    となる変分に対して、作用 \( S[q] \)が停留となる条件は 
   \begin{equation}
     \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{ \diff[i]{q}{t}}[]} =0
   \end{equation}
-\end{teiri}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    \exp x= \sum_{n=0}^{\infty} \frac{1}{n!}x^n 
+  \end{align*}
+\end{frame}
 
 \end{document}
