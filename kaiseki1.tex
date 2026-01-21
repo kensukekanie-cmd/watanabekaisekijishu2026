@@ -1,8 +1,5 @@
 \documentclass{beamer}
 \usepackage{luatexja}
-%\renewcommand{\kanjifamilydefault}{\gtdefault}
-%これは不便が出るまでは有効化しません
-%\usetheme{metropolis}
 \usetheme[block=fill]{metropolis}
 \usepackage{graphicx,tcolorbox,diffcoeff}
 \usepackage{amsmath,amsthm}
@@ -31,15 +28,60 @@ sub-nudge
   \maketitle
 \end{frame}
 
+
 \begin{frame}{作用・反作用の法則}
   \begin{block}{強い意味での作用・反作用の法則}
     \begin{equation}
-      \symbfit{f} _{ij}(t)=-\symbfit{f} _{ji}(t) \propto \symbfit{r} _{i}(t)-\symbfit{r} _j (t)  
+      \symbfit{f} _{ij}(t)=-\symbfit{f} _{ji}(t) \propto \symbfit{r} _{i}(t)-\symbfit{r} _j (t) 
+      \label{hansayou}
     \end{equation}
   \end{block}
   \vspace{1\baselineskip}
-  比例まで含めると\alert{強い意味}での作用・反作用の法則で、
+  比例まで含めると\alert{強い意味}での作用・反作用の法則で、\\
   適当なポテンシャルを考えるときに成立しない。
+\end{frame}
+
+\begin{frame}{運動量保存則}
+  \( M \)個の質点が運動する系で、EoMは
+  \begin{equation}
+    m_i \ddot{\symbfit{r}}_i(t) = \symbfit{f} _i (t) - \sum_{j=1}^{M} \symbfit{f} _{ij}(t)  
+  \end{equation}
+  式\eqref{hansayou}より
+  \begin{equation}
+    \diff**t{\sum_{i=1}^{M} m_i \dot{\symbfit{r}}_i(t) = \sum_{i,j=1}^{M} \symbfit{f} _{ij}(t)= \frac{1}{2} \sum_{i,j=1}^{M} \big(\underbrace{\symbfit{f} _{ij}(t)+\symbfit{f} _{ji}(t)  }_{=0}\big) =0  }
+  \end{equation}
+  よって運動量 \( \symbfit{P} :=\sum_{i=1}^{M} m_i \dot{\symbfit{r}}_i(t) \) 時間によらず一定値をとる\\
+  ただしこのとき、強い作用・反作用の法則は使っていない
+\end{frame}
+
+\begin{frame}{角運動量保存則}
+  \( \symbfit{f} _i(t) \)が、
+  \begin{equation}
+    \symbfit{f} _i(t)= C_i(t) \symbfit{r} _i(t) + \sum_{j=1}^{M} \symbfit{f} _{ij}(t)
+    \label{fikatei} 
+  \end{equation} 
+  であることを仮定する。
+\end{frame}
+
+\begin{frame}{角運動量保存則の導出}
+    \begin{align*}
+    \diff{\symbfit{L} }{t}
+    =&\diff**t{\sum_{i=1}^{M} m_i \symbfit{r} _i(t) \times \dot{\symbfit{r}}_i(t)}\\
+    =& \sum_{i=1}^{M} m_i \underbrace{ \dot{\symbfit{r}}_i(t) \times \dot{\symbfit{r}}_i(t)}_{=0} + \sum_{i=1}^{M} m_i \symbfit{r} _i(t) \times \ddot{\symbfit{r}}_i(t)\\
+    =& \sum_{i=1}^{M} \symbfit{r} _i(t) \times \underbrace{m_i \ddot{\symbfit{r} }_i(t)}_{=\symbfit{f} _i(t)} 
+  \end{align*}
+    式\eqref{fikatei}で \( C_i(t) \symbfit{r} _i(t)  \) の項は \( \symbfit{r} _i(t) \) との外積で0になるため
+\end{frame}
+
+\begin{frame}{角運動量保存則の導出}
+  \begin{align*}
+    \diff{\symbfit{L}}{t}
+    =& \sum_{i=1}^{M} \symbfit{r} _i(t) \times \underbrace{m_i \ddot{\symbfit{r} }_i(t)}_{=\symbfit{f} _i(t)} \\
+    =& \sum_{i,j=1}^{M} \symbfit{r} _i(t) \times \symbfit{f} _{ij}(t) \\
+    =& \sum_{i,j=1}^{M} \frac{1}{2} (\symbfit{r} _i -\symbfit{r} _j)\times \underbrace{\symbfit{f} _{ij}(t) }_{\propto (\symbfit{r} _i-\symbfit{r} _j)}  \\
+    =&0
+  \end{align*}
+  強い意味での作用・反作用の法則を用いている。
 \end{frame}
 
 \begin{frame}{関数の停留値問題}
@@ -71,7 +113,7 @@ sub-nudge
   \end{equation}}
 \end{frame}
 
-\begin{frame}{汎関数における停留}
+\begin{frame}{汎関数}
   関数\( q \)を1つ定めると値が対応する、\alert{汎関数} \(S[q] \) について考える
   \begin{equation}
     S[q]=\int_{t_i}^{t_f} \dl{t} L(q(t), \dot{q}(t),t) 
@@ -80,11 +122,12 @@ sub-nudge
 \end{frame}
 
 \begin{frame}
-  \Huge \textbf{汎関数も停留を考えたい！}
+  \begin{center}
+    \Huge \textbf{汎関数も停留を考えたい！}
+  \end{center}
 \end{frame}
 
-\begin{frame}
-  \frametitle{汎関数の停留（ざっくり）}
+\begin{frame}{汎関数の停留（ざっくり）}
   \begin{align*}
   δS[q]
   :=&S[q+ε]+S[q]\\
@@ -112,8 +155,7 @@ sub-nudge
    雑に書けば\( \difc{ \difcp{L}{\dot{q}}}{t} = \difcp{L}{q}\)
 \end{frame}
 
-\begin{frame}
-  \frametitle{オイラーラグランジュ方程式の導出}
+\begin{frame}{オイラーラグランジュ方程式の導出}
   \begin{align*}
   δS[q]
   :=&S[q+ε]-S[q]\\
@@ -133,8 +175,7 @@ sub-nudge
     &+ 𝒪(ε ^2)}
 \end{align*}
 \end{frame}
-
-
+ 
 
 \begin{frame}
   \frametitle{オイラーラグランジュ方程式の導出}
@@ -150,8 +191,7 @@ sub-nudge
 
 
 
-\begin{frame}
-  \frametitle{\( 𝒪(ε^2)\)についての補足}
+\begin{frame}{\( 𝒪(ε^2)\)についての補足}
   教科書だけでは分かりづらいため、具体例を示す。\\
   \( g(t_i)=g(t_f)=0 \)を満たす関数 \( g(t) \)  をとって
   \( ε(t)= ηg(t) \)としたとき
@@ -161,16 +201,16 @@ sub-nudge
   =&η ^2\int \dl{t} (g(t)F_1(t) + η g(t)F_2(t)+\cdots )\\ 
   =& 𝒪(η ^2)
   \end{align*}
-  \uncover<2->{微分積分の\alert{線形性}から先程の雑なオーダーが使えている事がわかる}
+  \uncover<2->{微分積分の\alert{線形性}から\\
+                先程の雑なオーダーが使えている事がわかる}
 \end{frame}
 
-\begin{frame}
-  \frametitle{ \( L(q, \dot{q}, \ddot{q},t) \)のEuler-Lagrange equation}
+\begin{frame}{\( L(q, \dot{q}, \ddot{q},t) \)のEuler-Lagrange equation}
   \begin{align*}
   δS
   =&\int_{t_i}^{t_f} \dl{t}
     \left( 
-      \diffp{L}{q} ε + \diffp{L}{\dot{q}} \dot{ε} + \diffp{L}{q} \ddot{ε} 
+      \diffp{L}{q} ε + \diffp{L}{\dot{q}} \dot{ε} + \diffp{L}{ \ddot{q}} \ddot{ε} 
     \right)+ 𝒪(ε^2)\\
   =&\int_{t_i}^{t_f} \dl{t} 
     \left( 
@@ -196,8 +236,7 @@ sub-nudge
   \end{block}
 \end{frame}
 
-\begin{frame}
-  \frametitle{\( L(q, \dot{q}, \ldots, \overset{n}{q} ,t) \)のEuler-Lagrange equation}
+\begin{frame}{\( L(q, \dot{q}, \ldots, \overset{n}{q} ,t) \)のEuler-Lagrange equation}
   \begin{align*}
   δS
   =&\int_{t_i}^{t_f} 
@@ -209,12 +248,11 @@ sub-nudge
     あんまりに煩雑だったので、時間微分のドットを \( i \)階微分のとき \( \overset{i}{q}\)  のように表した。表記ブレブレでごめんね
 \end{frame}
 
-\begin{frame}
-  \frametitle{一般のEuler-Lagrange equation}
+\begin{frame}{一般のEuler-Lagrange equation}
      \( ε(t_i)=ε(t_f)=0 , \dot{ε}(t_i)= \dot{ε}(t_f)=0 ,\ldots, \overset{n-1}{ε}(t_i)=\overset{n-1}{ε}(t_f)=0  \)
    となる変分に対して、作用 \( S[q] \)が停留となる条件は 
   \begin{equation}
-    \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{ \diff[i]{q}{t}}[]} =
+    \sum_{i=0}^{n} (-1)^i \diff**[i]t{ \diffp{L}{ \diff[i]{q}{t}}[]} =0
   \end{equation}
 \end{frame}
 
@@ -233,11 +271,12 @@ sub-nudge
   \begin{align*}
     \diff{E(t)}{t}
     =&\sum_{i=1}^{N} \left( \dot{q}_i \diff**t{ \diffp{L}{ \dot{q}_i}} \only<1>{+\ddot{q}_i(t) \diffp{L}{ \dot{q}_i} } \only<2>{ +\cancel{\ddot{q}_i(t) \diffp{L}{ \dot{q}_i}  }}\right)\only<1-2>{\\}
-     \only<1-2>{&}-\sum_{i=1}^{N} \left( \dot{q}_i \diffp{L}{q_i}+ \only<1>{+\ddot{q}_i(t) \diffp{L}{ \dot{q}_i} } \only<2>{ +\cancel{\ddot{q}_i(t) \diffp{L}{ \dot{q}_i} }}\right)- \diffp{L}{t} \\
-    \uncover<3->{=& \sum_{i=1}^{N} \dot{q}_i  \Bigg(\underbrace{\diff**{t}{\diffp{L(q(t), \dot{q}(t),t)}{ \dot{q}(t)}} - \diffp{L(q(t), \dot{q}(t),t)}{q(t)}}_{\text{Euler-Lagrange equation}}\Bigg)- \diffp{L}{t}\\ }
+    \only<1-2>{&}-\sum_{i=1}^{N} \left( \dot{q}_i \diffp{L}{q_i} \only<1>{+\ddot{q}_i(t) \diffp{L}{ \dot{q}_i} } \only<2>{ +\cancel{\ddot{q}_i(t) \diffp{L}{ \dot{q}_i} }}\right)- \diffp{L}{t} \\
+    \uncover<3->{=& \sum_{i=1}^{N} \dot{q}_i  \Bigg(\underbrace{\diff**{t}{\diffp{L(q, \dot{q},t)}{ \dot{q}}} - \diffp{L(q,\dot{q},t)}{q}}_{\text{Euler-Lagrange equation}}\Bigg)- \diffp{L}{t}\\ }
     \uncover<4->{=& -\diffp{L}{t}}
-  \end{align*}
-  \uncover<5->{ラグランジアンが\alert{陽に}時間依存しないときエネルギーは保存される。}
+  \end{align*} 
+  \uncover<5->{ラグランジアンが\alert{陽に}時間依存しないとき\\
+                エネルギーは保存される。}
 \end{frame}
 
 \begin{frame}{ある座標に陽に依存しない場合の保存量}
@@ -245,7 +284,8 @@ sub-nudge
   \begin{equation}
     \diff**t{} p_i(t) = \diff**t{ \diffp{L}{ \dot{q}_i}[]} = \diffp{L}{q_i} \quad (\because \text{Euler-Lagrange equation})
   \end{equation} 
-  \uncover<2->{ラグランジアンがある座標 \( q_i \)に陽に依存しないとき、対応する \( p_i \)（\alert{循環座標}）が保存される。 } 
+  \uncover<2->{ラグランジアンがある座標 \( q_i \)に陽に依存しないとき、\\
+                対応する \( p_i \)（\alert{循環座標}）が保存される。 } 
 \end{frame}
 
 \begin{frame}{ラグランジアンの存在条件}
@@ -261,13 +301,13 @@ sub-nudge
 
 \begin{frame}{ラグランジアンの存在条件}
   \begin{block}{ヘルムホルツ条件}
-    微分方程式 \( \mathcal{D}_i(q, \dot{q}, \ddot{q},t) =0 \quad (i=1,2, \ldots, N)\)が与えられたとき、
+    微分方程式 \( \mathcal{D}_i(q, \dot{q}, \ddot{q},t) =0 \,(i=1,2, \ldots, N)\)が与えられたとき、
     これを導くラグランジアンが存在するための必要十分条件は、すべての
     \( i,j=1,2, \ldots, N \)  に対して次の関係が成立することである。
     \begin{gather}
       \diffp{\mathcal{D}_i}{ \ddot{q}_j}=\diffp{\mathcal{D}_j}{ \ddot{q}_i}\\
       \frac{1}{2}\left( \diffp{\mathcal{D}_i}{ \dot{q}_j}+ \diffp{\mathcal{D}_j}{ \dot{q}_i}\right) = \diff**t{ \diffp{\mathcal{D}_i}{ \ddot{q}_j}}\\
-      \diffp{\mathcal{D}_i}{q_j} - \diffp{\mathcal{D}_j}{q_i}= \frac{1}{2} \diff**t{ \diffp{\mathcal{D}_i}{ \dot{q}_j}-\diffp{\mathcal{D}_j}{ \dot{q}_i}[]} 
+      \diffp{\mathcal{D}_i}{q_j} - \diffp{\mathcal{D}_j}{q_i}= \frac{1}{2} \diff**t{ \left( \diffp{\mathcal{D}_i}{ \dot{q}_j}-\diffp{\mathcal{D}_j}{ \dot{q}_i} \right)} 
     \end{gather}
   \end{block}
 \end{frame}
