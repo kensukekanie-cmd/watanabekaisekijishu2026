@@ -1,0 +1,62 @@
+\documentclass{beamer}
+\usepackage{luatexja}
+\usetheme[block=fill]{metropolis}
+\usepackage{graphicx,diffcoeff}
+\usepackage{unicode-math}
+\setmathfont{NewComputerModernMath}
+\usepackage[thicklines]{cancel}
+\usepackage{xcolor}
+\renewcommand{\CancelColor}{\color{red!60!black}}
+\usepackage{hyperref}
+%ここまで呪文
+
+\title{解析力学自主ゼミ第◯回\\
+ ～◯◯～}
+\author{}
+\date{ゼミをやる日}
+\begin{document}
+
+%一スライドは一つのframe環境に対応します。
+\begin{frame}
+  \maketitle
+\end{frame}
+
+%これで一枚のスライドを出力します。
+\section{〇〇}
+
+%タイトルを付けたい場合はこのように
+\begin{frame}{タイトル}
+  ◯◯
+  \begin{equation}
+    ∇ \times (∇ \times \symbfit{A} ) = ∇(∇\cdot \symbfit{A} ) - (∇ \cdot ∇)\symbfit{A} 
+    \label{veq}
+  \end{equation}%frame環境の中では普通にかける
+  式\eqref{veq}より……\alert{強調する箇所}
+\end{frame}
+
+\begin{frame}
+    % 通常のブロック
+    \begin{block}{タイトル}
+        〇〇
+    \end{block}
+
+    % 警告・注目用の朱色ブロック
+    \begin{alertblock}{タイトル}
+        〇〇
+    \end{alertblock}
+
+    % 例題用のブロック（緑）
+    \begin{exampleblock}{タイトル}
+        〇〇
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[standout]%色反転
+    こんにちは！！ \\
+    \uncover<2->{こんばんは}\\%二枚目以降表示
+    \uncover<1-2>{こんばんは}\\%一から二枚目まで表示
+    \only<3>{おはよう}\\%三枚目だけ表示り
+\end{frame}
+
+\end{document}
+
