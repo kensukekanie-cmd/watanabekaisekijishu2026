@@ -1,0 +1,74 @@
+\documentclass{jlreq}
+\usepackage{graphicx,tcolorbox}
+\usepackage{mathtools,diffcoeff,unicode-math}
+\setmathfont{NewComputerModernMath}
+\newtcolorbox{hako}[1]{colframe=black,colback=white,coltitle=black,colbacktitle=white,boxrule=0.8pt,arc=0mm,title={\textbf{#1}},}
+\usepackage[thicklines]{cancel}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{flushleft}
+  \LARGE \textbf{ヘルムホルツ条件}
+\end{flushleft}
+
+\[\diff*{\diffp{L}{\dot{q}_i}}{t} - \diffp{L}{q_i}\]
+オイラー・ラグランジュ方程式の時間常微分を実行する。
+\[\mathcal{D}_i:=\ddot{q}_j ∂_{\dot{i},\dot{j}}L  + \dot{q}_j ∂_{\dot{i},j}L + ∂_{\dot{i},t}L - L_i=0\]
+\( \mathcal{D}_i = \mathcal{D}_i(q, \dot{q}, \ddot{q},t) \) このような微分方程式に書き換えられる。
+このときの解の存在の必要十分条件が、ヘルムホルツ条件であった。
+
+\begin{flushleft}
+  \large \textbf{必要性}
+\end{flushleft}
+
+ラグランジアンの存在を仮定し、
+\( \mathcal{D}_i:=\ddot{q}_k ∂_{\dot{i},\dot{k}}L  + \dot{q}_k ∂_{\dot{i},k}L + ∂_{\dot{i},t}L - L_i \) 
+とする。\\
+\noindent
+\( ∂_{\ddot{j}}\mathcal{D}_i \to ∂_{\dot{j}}\mathcal{D}_i \to ∂_{j}\mathcal{D}_i \) の順で計算して、必要性を証明する。
+
+
+\begin{flushleft}
+  \large \textbf{B.1}
+\end{flushleft}
+\[∂_{\ddot{j}}\mathcal{D}_i = ∂_{\dot{i}, \dot{j}} L =∂_{\dot{j}, \dot{i}} L= ∂_{\ddot{i}}\mathcal{D}_j \]
+
+\begin{flushleft}
+  \large \textbf{B.2}
+\end{flushleft}
+\begin{align*}
+  ∂_{\dot{j}}\mathcal{D}_i 
+  &= \ddot{q}_k ∂_{\dot{i}, \dot{k}, \dot{j}} L+ \dot{q}_k ∂_{\dot{i}, k,\dot{j} }L + ∂_{\dot{i},j}L + ∂_{\dot{i},t, \dot{j}}L -∂_{i, \dot{j}}L\\
+  &= (\ddot{q}_k ∂_{\dot{i},\dot{j}, \dot{k}} + \dot{q}_k ∂_{\dot{i},\dot{j},k} + ∂_{\dot{i},\dot{j},t})L
+    + (∂_{\dot{i},j} - ∂_{i, \dot{j}})L\\
+  &= \underbrace{\diff*{∂_{\dot{i}, \dot{j}}L}{t} }_{\text{対称}}  + \underbrace{(∂_{\dot{i},j} - ∂_{i, \dot{j}})L}_{\text{反対称}} 
+\end{align*} 
+
+これより、
+\[\frac{1}{2} (∂_{\dot{j}}\mathcal{D}_i + ∂_{\dot{i}}\mathcal{D}_j ) =  \diff*{∂_{\dot{i}, \dot{j}}L}{t} =\]
+
+\begin{flushleft}
+  \large \textbf{B.3}
+\end{flushleft}
+右辺を \( ∂_{\dot{j}}\mathcal{D}_i  \)の反対称性から整理すると、
+\[\frac{1}{2} \diff*{(∂_{\dot{j}}\mathcal{D}_i + ∂_{\dot{i}}\mathcal{D}_j)}{t} = \diff*{(∂_{\dot{i},j}L - ∂_{i, \dot{j}}L)}{t}\] 
+次に左辺について考える。
+\begin{align*}
+  ∂_{j}\mathcal{D}_i
+  =& \ddot{q}_k ∂_{\dot{i}, \dot{k}, j} L + \dot{q}_k ∂_{\dot{i}, k, j}L + ∂_{\dot{i},t,j}L - ∂_{i,j} L\\
+  =& (\ddot{q}_k ∂_{\dot{i}, j, \dot{k}} L + \dot{q}_k ∂_{\dot{i}, j, k}L + ∂_{\dot{i},j,t}L) - ∂_{i,j} L\\
+  =& \diff*{∂_{\dot{i},j}L}{t} - \underbrace{∂_{i,j} L}_{\text{対称}} 
+\end{align*}
+
+したがって 
+\[∂_{j}\mathcal{D}_i - ∂_{i}\mathcal{D}_j =  \diff*{(∂_{\dot{i},j}L - ∂_{i, \dot{j}}L)}{t} = \frac{1}{2} \diff*{(∂_{\dot{j}}\mathcal{D}_i + ∂_{\dot{i}}\mathcal{D}_j)}{t} \]
+
+\begin{flushleft}
+  \large \textbf{十分性}
+\end{flushleft}
+
+(B.2)の右辺の常微分を実行する。
+\[ \diff*{∂_{\ddot{j}}}{t}\]
+
+\end{document}
