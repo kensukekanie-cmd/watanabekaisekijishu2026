@@ -5,7 +5,7 @@
 \newtcolorbox{hako}[1]{colframe=black,colback=white,coltitle=black,colbacktitle=white,boxrule=0.8pt,arc=0mm,title={\textbf{#1}},}
 \usepackage[thicklines]{cancel}
 \usepackage{hyperref}
-
+\setlength{\parindent}{0pt}
 \begin{document}
 
 \begin{flushleft}
@@ -19,7 +19,7 @@
 このときの解の存在の必要十分条件が、ヘルムホルツ条件であった。
 
 \begin{flushleft}
-  \large \textbf{必要性}
+  \Large \textbf{必要性}
 \end{flushleft}
 
 ラグランジアンの存在を仮定し、
@@ -52,7 +52,7 @@
   \large \textbf{B.3}
 \end{flushleft}
 右辺を \( ∂_{\dot{j}}\mathcal{D}_i  \)の反対称性から整理すると、
-\[\frac{1}{2} \diff*{(∂_{\dot{j}}\mathcal{D}_i + ∂_{\dot{i}}\mathcal{D}_j)}{t} = \diff*{(∂_{\dot{i},j}L - ∂_{i, \dot{j}}L)}{t}\] 
+\[\frac{1}{2} \diff*{(∂_{\dot{j}}\mathcal{D}_i - ∂_{\dot{i}}\mathcal{D}_j)}{t} = \diff*{(∂_{\dot{i},j}L - ∂_{i, \dot{j}}L)}{t}\] 
 次に左辺について考える。
 \begin{align*}
   ∂_{j}\mathcal{D}_i
@@ -64,11 +64,61 @@
 したがって 
 \[∂_{j}\mathcal{D}_i - ∂_{i}\mathcal{D}_j =  \diff*{(∂_{\dot{i},j}L - ∂_{i, \dot{j}}L)}{t} = \frac{1}{2} \diff*{(∂_{\dot{j}}\mathcal{D}_i + ∂_{\dot{i}}\mathcal{D}_j)}{t} \]
 
-\begin{flushleft}
-  \large \textbf{十分性}
-\end{flushleft}
+% \begin{flushleft}
+%   \Large \textbf{十分性}
+% \end{flushleft}
 
-(B.2)の右辺の常微分を実行する。
-\[ \diff*{∂_{\ddot{j}}}{t}\]
+% \begin{flushleft}
+%   \large \textbf{ヘルムホルツ条件の書き換え}
+% \end{flushleft}
+
+% (B.2)の右辺の常微分を実行する。
+% \[ \diff*{∂_{\ddot{j}}}{t}= \dot{q}_k ∂_{\ddot{j},k}\mathcal{D}_i + \ddot{q}_k ∂_{\ddot{j}, \dot{k}}\mathcal{D}_i + \dddot{q}_k ∂_{\ddot{j}, \ddot{k}}\mathcal{D}_i + ∂_{\ddot{j},t}\mathcal{D}_i\]
+% 左辺には \( \dddot{q}_k \)が含まれないから、
+% \[∂_{\ddot{k}, \ddot{j}}\mathcal{D}_i=0 \quad (∀ j,k= 1, \ldots, N)\]
+% よって
+% \( \mathcal{D}_i \)
+% は \( \ddot{q}_j \)のたかだか一次式。
+% すなわち\( m_{ij}=m_{ij}(q, \dot{q},t) ,f_i=f_i(q, \dot{q},t) \quad (∀ i,j=1, \ldots, N )  \)を用いると、
+% \[\mathcal{D}_i(q, \dot{q}, \ddot{q}, t)= \ddot{q}_k m_{ik} f_i \]
+% のように書き換えられる。
+% ここから(B.1),(B.2),(B.3)を書き換える。
+% まず、(B.1)より、
+% \[m_{ij}=m_{ji} \]
+% また、
+% \[∂_{\dot{j}}\mathcal{D}_i= \ddot{q}_k ∂_{\dot{j}}m_{ik} +∂_{\dot{j}}f_i\]
+% \begin{gather*}
+%   ∂_{\dot{j}}\mathcal{D}_i- ∂_{\dot{i}}\mathcal{D}_j= \ddot{q}_k \underbrace{(∂_{\dot{j}}m_{ik}- ∂_{\dot{i}}m_{jk})}_{=0}  + (∂_{\dot{j}}f_i-∂_{\dot{i}}f_j)\\
+%   ∴ ∂_{\dot{j}}m_{ik} = ∂_{\dot{i}}m_{jk}  
+% \end{gather*}
+% (B.10)と合わせて考えると、 \(∀  i,j,k=1, \ldots, N \)について成立。
+
+% (B.3)の右辺について
+% \begin{align*}
+%    \diff*{(∂_{\dot{j}}\mathcal{D}_i- ∂_{\dot{i}}\mathcal{D}_j)}{t}
+%    =& \diff*{∂_{\dot{j}}f_i-∂_{\dot{i}}f_j}{t}\\
+%    =& \ddot{q}_k (∂_{\dot{k}, \dot{j}}f_i- ∂_{k, \dot{j}}f_j) + (∂_{t}+ \dot{q}_k ∂_{k})(∂_{\dot{j}}f_i -∂_{\dot{i}}f_j)
+% \end{align*}
+% 左辺は(B.9)から
+% \[∂_{j}\mathcal{D}_i-∂_{i}\mathcal{D}_j = \ddot{q}_k(∂_{j}m_{ik}- ∂_{i}m_{jk}) + (∂_{j}f_i-∂_{i}f_j)\]
+% 両辺の係数を比較すると、
+% \begin{flalign*}
+%   &∂_{j}m_{ik}-∂_{i}m_{jk} = \frac{1}{2} (∂_{\dot{k}, \dot{j}}f_i- ∂_{k, \dot{j}}f_j)  \quad (∀ i,j,k=1, \ldots, N)\\
+%   &∂_{j}f_i-∂_{i}f_j =\frac{1}{2}  (∂_{t}+ \dot{q}_k ∂_{k})(∂_{\dot{j}}f_i -∂_{\dot{i}}f_j)  \quad (∀ i,j=1, \ldots, N) 
+% \end{flalign*}
+
+% (B.2)も書き換える。
+% \( ∂_{\dot{j}}m_{ik}  \)が対称であることから、
+% \[\frac{1}{2}(∂_{\dot{j}}\mathcal{D}_i +∂_{\dot{i}}\mathcal{D}_j)= \ddot{q}_k ∂_{\dot{j}}m_{ik} + \frac{1}{2}(∂_{\dot{j}}f_i+∂_{\dot{i}}f_j)  \]  
+
+% \begin{align*}
+%   \diff*{∂_{\ddot{j}}\mathcal{D}_i}{t}
+%   =& \diff*{m_{ij}(q, \dot{q},t)}{t}\\
+%   =& \dot{q}_k ∂_{k} m_{ij} + \ddot{q}_k ∂_{\dot{k}}m_{ij} + ∂_{t}m_{ij} \\
+%   =& \ddot{q}_k  ∂_{\dot{k}}m_{ij} + (∂_{t} + \dot{q}_k ∂_{k})m_{ij}  
+% \end{align*}
+% よって
+% \[\frac{1}{2}(∂_{\dot{j}}f_i+∂_{\dot{i}}f_j)= (∂_{t} + \dot{q}_k ∂_{k})m_{ij}  \]
+
 
 \end{document}
