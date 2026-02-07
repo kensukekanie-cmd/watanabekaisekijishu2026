@@ -10,37 +10,66 @@
 \begin{document}
 
 時間はエネルギー保存から
-\( \int_{t_i}^{t_f}\sqrt{2+y'^2}(2gy)^{-\frac{1}{2} } \dl{x}\) 
+\( \int_{t_i}^{t_f}\sqrt{1+y'^2}(2gy)^{-\frac{1}{2} } \dl{x}\) 
 これは
-\( L=\sqrt{2+y'^2}(y)^{-\frac{1}{2} } \)としてE-Leqをとけばよい
+\( L=\sqrt{1+y'^2}(y)^{-\frac{1}{2} } \)としてE-Leqをとけばよい
 
 \begin{align}
-  \diffp{L}{y}=&-\frac{1}{2}(2+y'^2)^{\frac{1}{2}}y^{-\frac{3}{2}} \notag\\
-  \diffp{L}{y'}=&\frac{1}{2} \cdot 2 y'(2+y'^2)y^{-\frac{1}{2} }  =y'(2+y'^2)y^{-\frac{1}{2} } \notag
+  \diffp{L}{y}=&-\frac{1}{2}(1+y'^2)^{\frac{1}{2}}y^{-\frac{3}{2}} \notag\\
+  \diffp{L}{y'}=&\frac{1}{2} \cdot 2 y'(1+y'^2)y^{-\frac{1}{2} }  =y'(1+y'^2)y^{-\frac{1}{2} } \notag
 \end{align}
 以降煩雑さ回避のために \( p:= \difs{y}{x} \)を用いる。 
 
 \begin{align*}
-  \diffp{}{p} \sqrt{2+p^2}p
-  =&\sqrt{2+p^2}- \cancel{\frac{1}{2} }(2+p^2)^{-\frac{3}{2} }p \cdot \cancel{2}p\\
-  =&\frac{2}{\sqrt{2+p^2}}\left( 2- \frac{p^2}{2+p^2}  \right)\\
-  =&(2+p^2)^{-\frac{3}{2} }   
+  \diffp{}{p} \sqrt{1+p^2}p
+  =&\sqrt{1+p^2}- \cancel{\frac{1}{2} }(1+p^2)^{-\frac{3}{2} }p \cdot \cancel{2}p\\
+  =&\frac{2}{\sqrt{1+p^2}}\left( 2- \frac{p^2}{1+p^2}  \right)\\
+  =&(1+p^2)^{-\frac{3}{2} }   
 \end{align*}
 これを次の微分で使う
 
 \begin{align*}
   \diff**x{ \diffp{L}{p}}
   =& p \diff{}{y}\diffp{L}{p}\\
-  =& py^{-\frac{1}{2} }(2+p^2)^{-\frac{3}{2} }  \diff{p}{y} - \frac{1}{2}p^2y^{-\frac{3}{2} }(1+p^2)^{-\frac{1}{2} }   
+  =& py^{-\frac{1}{2} }(1+p^2)^{-\frac{3}{2} }  \diff{p}{y} - \frac{1}{2}p^2y^{-\frac{3}{2} }(1+p^2)^{-\frac{1}{2} }   
 \end{align*}
 こいつをE-Leqにぶち込む
 
-\begin{align*}
+
+\begin{flalign*}
   &py^{-\frac{1}{2} }(1+p^2)^{-\frac{3}{2} } \diff{p}{y}-\frac{1}{2} p^2 y^{-\frac{3}{2} }(1+p^2)^{-\frac{1}{2} }+\frac{1}{2}  y^{-\frac{3}{2} }(1+p^2)^{\frac{1}{2} }=0\\
   &2py(1+p^2)^{-2} \diff{p}{y} - \frac{p^2}{1+p^2}+1=0 \\
   &\frac{2p}{1+p^2} \dl{p} =- \frac{ \dl{y}}{y} \\
   & \ln (y(1+p^2))=\text{const.}\\
-  & y(1+p^2)=C
-\end{align*}
+  & y= \frac{C}{1+p^2} 
+\end{flalign*}
+
+\( y \)をシンプルな形で表せた。以降でこのサイクロイドを求めていく。
+\( y \) を \( x \) で微分する。
+
+\begin{gather*}
+  \diff{y}{x} 
+  = p = - \frac{2Cp}{(1+p^2)^2} \diff{p}{x}\\
+  \dl{x} = - \frac{2C}{(1+p^2)^2} \dl{p} \quad (p \neq 0) \\
+  x = -C \left( \tan^{-1}p + \frac{p}{1+p^2}  \right) + \text{const.}
+\end{gather*}
+
+これで、 \( x,y \)を媒介変数表示できた。
+\[
+  \begin{cases}
+     x = -C \left( \tan^{-1} + \frac{p}{1+p^2}  \right) + \text{const.}\\
+     y = y= \frac{C}{1+p^2} 
+  \end{cases}
+\] 
+\( x \)の定数部分は高々平行移動に過ぎないので無視する。
+よく見知った形に変換するために媒介変数の変換を行う。
+今、\( p = -\tan θ/2 \)として\( C/2 \to C \)と置き換えると、
+\[
+  \begin{cases}
+    x=C(θ+ \sin θ)\\
+    y=C(1+ \cos θ)
+  \end{cases}
+\]
+
 
 \end{document}
