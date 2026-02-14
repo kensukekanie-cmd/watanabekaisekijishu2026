@@ -10,7 +10,7 @@
 \usepackage{wrapfig}
 \setlength{\parindent}{0pt}
 \usepackage[normalem]{ulem}
-
+\pagestyle{empty}
 \usepackage[dvipsnames]{xcolor}
 \definecolor{darkred}{RGB}{150, 0, 0}
 \definecolor{darkblue}{RGB}{0, 0, 150}
@@ -250,7 +250,7 @@
 
 \begin{align}
     \diffp{L}{y}=& -m ω (\sin λ \dot{x} + \cos λ \dot{z} - ω y) - \diffp{U}{y} \notag \\%ここのマイナスあってたっけ
-    \diff*{\diffp{L}{\dot{y}}[]}{t}=&m( \ddot{y}+ ω \sin λ \dot{x} + ω \cos λ \dot{z})\notag\\
+    \diff*{\diffp{L}{\dot{y}}[]}{t}=&m( \ddot{y}+ ω \sin λ \dot{x} + ω \cos λ \dot{z})\notag
 \end{align}
 よって
 \begin{equation}
