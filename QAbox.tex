@@ -84,6 +84,10 @@
 %   回答文…
 % \end{qboxok}
 
+\begin{flushleft}
+  \Huge \textbf{解析力学ゼミ 質問箱 }
+\end{flushleft}
+\vspace{1\baselineskip}
 
 \begin{qboxok}
   {p29  \( t \)に陽に依存しないラグランジアン}
@@ -162,6 +166,22 @@
   直交行列は単に回転操作するだけでなく,空間の反転操作（例：右手座標系 → 左手座標系）
   も含む.物理において回転不変性を議論する場合,ネーターの定理を考えることから連続的な変化を想定する.
   連続な回転では鏡像操作を実現できない不連続な操作であることから特殊直交行列を考えている.
+\end{qboxok}
+
+\begin{qboxok}
+  {p53 時間の常微分のチェーンルール}
+  {昌詩}
+  {蟹江}
+  
+  \( f(x(t),t) \) （ \( x(t) \)は \( x_1(t), \ldots, x_n(t) \)の略記  ）
+  の時間常微分が \( \diff*{f(x(t),t)}{t}= \dot{\symbfit{r}} \cdot  ∇ f(x(t),t)  + \diffp*{f(x(t),t)}{t}\) の形で表されるのはなぜ？
+
+  \qsep
+
+  \begin{align*}
+    \diff*{f(x(t),t)}{t}&= \diffp{f}{x_1} \dot{x}_1 + \cdots +\diffp{f}{x_n} \dot{x}_n + \diffp{f}{t}\\
+    &=\dot{\symbfit{r}} \cdot  ∇ f(x(t),t)  + \diffp*{f(x(t),t)}{t}
+  \end{align*}
 \end{qboxok}
 
 \begin{qboxok}
