@@ -1,0 +1,147 @@
+\documentclass{jlreq}
+\usepackage{graphicx,tcolorbox}
+\usepackage{mathtools,diffcoeff,unicode-math}
+\setmathfont{NewComputerModernMath}
+\newtcolorbox{hako}[1]{colframe=black,colback=white,coltitle=black,colbacktitle=white,boxrule=0.8pt,arc=0mm,title={\textbf{#1}},}
+\usepackage[thicklines]{cancel}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\begin{document}
+\begin{center}
+    \LARGE \textbf{特殊直交群}
+\end{center}
+\vspace{0.4\baselineskip}
+この資料は渡辺悠樹『解析力学－基礎の基礎から発展的なトピックまで－』の86頁
+にある3次元回転行列に関する補足となっています.
+
+回転軸
+\( \symbfit{n} = (n_x,n_y,n_z)^T  \) （ \( \symbfit{n} ^2 =1 \) ）
+周りの
+\( φ \) だけの回転を表す
+\( 3 \times 3 \) 行列\(R(φ \symbfit{n})\) を求める.
+まずは準備として,
+\( x,y,z \) 軸周りの回転を表す行列を示す.
+\footnote{
+  これらを
+  \( \symbfit{e} _x,\symbfit{e} _y,\symbfit{e} _z \)の写像として考えて,
+  列ベクトル同士を位相が \( π/2 \)  だけずれたものとして捉えると,自然と導くことができる.
+}
+
+\[
+  R_x(φ_x)=
+  \begin{pmatrix}
+    1 & 0 & 0\\
+    0 & \cos φ_x & - \sin φ_x\\
+    0 & \sin φ_x & \cos φ_x
+  \end{pmatrix}
+  ,
+  R_y(φ_y)=
+  \begin{pmatrix}
+    \cos φ_y & 0 & \sin φ_y\\
+    0 & 1 & 0\\
+    -\sin φ_y & 0 &\cos φ_y
+  \end{pmatrix}
+  ,
+  R_z(φ_z)=
+  \begin{pmatrix}
+    \cos φ_z & -\sin φ_z & 0\\
+    \sin φ_z & \cos φ_z & 0\\
+    0&0&1
+  \end{pmatrix}
+\]
+今\( x,y,z \) 軸周りにそれぞれ
+\( ε_x,ε_y,ε_z \) だけ回転したとき,
+\begin{align}
+  R_x(ε_x)=&
+  \begin{pmatrix}
+    1&0&0\\
+    0&1&-ε_x\\
+    0&ε_x&1
+  \end{pmatrix}
+  +𝒪(ε_{x}^{2}) \notag\\
+  =& I + i ε_x J_x + 𝒪(ε_{x}^{2})
+  \label{xeq}\\
+  R_y(ε_y)=&
+  \begin{pmatrix}
+    1&0&ε_y\\
+    0&1& 0\\
+    -ε_y&0&1
+  \end{pmatrix}
+  +𝒪(ε_{y}^{2} )\notag\\
+  =& I + i ε_y J_y + 𝒪(ε_{y}^{2})
+  \label{yeq}\\
+  R_z(ε_z)=&
+  \begin{pmatrix}
+    1&-ε_z&0\\
+    ε_z&1&0\\
+    0&0&1
+  \end{pmatrix}
+  +𝒪(ε_{z}^{2})\notag\\
+  =&I + i ε_z J_z + 𝒪(ε_{z}^{2})
+  \label{zeq}
+\end{align}
+ただし,
+\( J_x,J_y,J_z \) を以下のように定義した.
+\[
+  J_x =i
+  \begin{pmatrix}
+    0&0&0\\
+    0&0&1\\
+    0&-1&0
+  \end{pmatrix}
+  ,\quad 
+  J_y =i
+  \begin{pmatrix}
+    0&0&-1\\
+    0&0&0\\
+    1&0&0
+  \end{pmatrix}
+  ,\quad 
+  J_z=i 
+  \begin{pmatrix}
+    0&1&0\\
+    -1&0&0\\
+    0&0&0
+  \end{pmatrix}
+\]
+式\eqref{xeq},\eqref{yeq},\eqref{zeq}より,一般の回転について
+\begin{align*}
+  R(ε\symbfit{n})=&
+  I+i(εn_x J_x+εn_y J_y+εn_z J_z)+𝒪(ε^2)\\
+  =&I + i ε \symbfit{n} \cdot \symbfit{J} + 𝒪(ε^2)
+\end{align*}
+といえる.回転操作を続けて行ったものは行列の積として表現できることから,
+\begin{align*}
+  R(φ\symbfit{n} + ε\symbfit{n} )=&
+  R(ε\symbfit{n})R(φ\symbfit{n})\\
+  =&(I + i ε \symbfit{n} \cdot \symbfit{J} )R(φ\symbfit{n} ) +𝒪(ε^2)\\
+  % R\big((φ+ε)\symbfit{n}\big)-R(φ\symbfit{n} )=&i ε \symbfit{n} \cdot \symbfit{J} R(φ\symbfit{n} )+ 𝒪(ε^2)\\
+  \frac{R\big((φ+ε)\symbfit{n}\big)-R(φ\symbfit{n} )}{ε} =&i \symbfit{n} \cdot \symbfit{J} R(φ\symbfit{n} ) + 𝒪(ε)\\
+  \xrightarrow{ε \to 0 } 
+  \diff*{R(φ\symbfit{n} )}{φ}=& i \symbfit{n} \cdot \symbfit{J} R(φ\symbfit{n} )\\
+  R(φ\symbfit{n} )=& \exp (i φ \symbfit{n} \cdot \symbfit{J} )
+\end{align*}
+
+\( \symbfit{n}  \) の指定に2つのパラメータが必要で,回転角も一つのパラメータとなっているから
+\( SO(3) \) は
+\( N_G = 3  \) の連続的対称性である.
+
+\begin{hako}{補足：行列指数関数}
+任意の正方行列
+\( A \)に対して
+\( \exp A \) は
+\[\exp A := \sum_{n=0}^{\infty} \frac{1}{n!}A^n = I + A + \frac{1}{2!}A^2 + \frac{1}{3!} A^3+ \cdots   \]
+と定義され,
+\begin{align*}
+  \diff*{\exp At}{t} 
+  =&\diff**t{\sum_{n=0}^{\infty} \frac{1}{n!}A^n t^n} \\
+  =& \sum_{n=1}^{\infty} \frac{1}{(n-1)!}A^{n} t^{n-1} \\
+  =& A\sum_{n=0}^{\infty} \frac{1}{n!}A^n t^n\\
+  =& A \exp At 
+\end{align*}
+が成立する.
+
+\end{hako}
+
+
+\end{document}
