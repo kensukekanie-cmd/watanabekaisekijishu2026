@@ -4,7 +4,7 @@
 \usepackage{unicode-math}
 \setmathfont{NewComputerModernMath}
 \usepackage[thicklines]{cancel}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 %使いたいパッケージは競合してエラー置きない限り自由に追加していいよ
 \tcbuselibrary{breakable, skins}
 \newcommand{\qsep}{%
@@ -12,6 +12,7 @@
   \medskip
 }
 
+\newtcolorbox{hako}[1]{colframe=black,colback=white,coltitle=black,colbacktitle=white,boxrule=0.8pt,arc=0mm,title={\textbf{#1}},}
 
 \newtcolorbox{qbox}[2]{%
   breakable,
@@ -276,6 +277,55 @@
   表現が異なるだけで軌道は変わらない.
   
 \end{qboxok}
+
+\begin{qboxok}
+  {p111 回転対称性}
+  {蟹江}
+  {蟹江}
+
+\( k/r \) の変化分が
+\( 𝒪(ε^2) \) というような記述に詰まっている.
+自分の考えでは,
+\begin{align*}
+  &\frac{k}{|\symbfit{r} + \symbfit{ε} \times \symbfit{r}  |} - \frac{k}{r} \\
+  =&\frac{k}{r + |\symbfit{ε} \times \symbfit{r}  |} - \frac{k}{r} \quad (∵ \symbfit{r} \cdot (\symbfit{ε} \times \symbfit{r}) =0)\\
+  =& - \frac{k}{r^2} |\symbfit{ε} \times \symbfit{r}  | + 𝒪(ε^2)
+\end{align*}
+という変形から \( |\symbfit{ε} \times \symbfit{r}  | = 𝒪(ε)\) となり, \( Λ \neq 0 \) 
+が導かれて教科書の記述と矛盾する.
+
+\qsep
+
+先に何が間違っているかというと,
+\( r' = r + | \symbfit{ε} \times \symbfit{r} | \) 
+という等式は成立しない.
+
+\[ \symbfit{r}'^2 = \symbfit{r}^2  + (\symbfit{ε} \times \symbfit{r} )^2=\symbfit{r}^2 + 𝒪(ε^2) \] 
+より
+\begin{align}
+  r' =& \sqrt{\symbfit{r}^2 + 𝒪(ε^2)}  = r \sqrt{1+𝒪(ε^2)} \notag\\
+  =& r + 𝒪(ε^2) 
+  \label{kaiten}
+\end{align}
+が成立する.
+あとはテイラー展開すれば,
+\[\frac{k}{|\symbfit{r} + \symbfit{ε} \times \symbfit{r}  |} - \frac{k}{r} = 𝒪(ε^2)\]
+
+
+\end{qboxok}
+
+\begin{hako}
+  {補足：式\eqref{kaiten}について}
+ここの変形は, \( (1+x)^n \) のテイラー展開によって保証されるが,
+高校範囲の極限でも納得できるので計算を残しておく .
+\begin{align*}
+  \frac{\sqrt{1+ε^2}-1}{ε^2} 
+  =& \frac{1+ε^2 -1}{ε^2(\sqrt{1+ε^2}+1)}\\
+  =&\frac{1}{\sqrt{1+ε^2} +1}
+  \xrightarrow{ε \to 0}  \frac{1}{2}   
+\end{align*}
+
+\end{hako}
 
 
 \begin{qboxok}
