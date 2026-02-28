@@ -231,7 +231,7 @@
   \begin{align*}
     &\sum_{i=1}^{N} \underbrace{\diffp{C_γ(q)}{q_i}}_{=[J(q)]_{γl}}  ε_i =0\\
     \implies & \sum_{l=N'+1}^{N} [J(q)]_{γl} ε_l +\sum_{k=1}^{N'} \diffp{C_γ(q)}{q_k} ε_k =0\\
-    \implies & \sum_{l=N'+1}^{N} \underbrace{[J(q)]_{γl} ε_l }_{=(J \symbfit{ε})_l} = -  \sum_{k=1}^{N'} \diffp{C_γ(q)}{q_k} ε_k\\
+    \implies &  \underbrace{\sum_{l=N'+1}^{N}[J(q)]_{γl} ε_l }_{=(J \symbfit{ε})_γ} = -  \sum_{k=1}^{N'} \diffp{C_γ(q)}{q_k} ε_k\\
     \implies & (J^{-1} J \symbfit{ε} )_l = ε_l = - \left( \sum_{γ=1}^{Γ}[J^{-1}]_{lγ}  \right) \left(  \sum_{k=1}^{N'} \diffp{C_γ(q)}{q_k} ε_k \right)\\
     \implies & ε_l = - \sum_{γ=1}^{Γ}  \sum_{k=1}^{N'} [J^{-1}]_{lγ} \diffp{C_γ(q)}{q_k} ε_k
   \end{align*}
@@ -275,6 +275,135 @@
 
   どちらの関数も同じ位置ベクトルを示すから,
   表現が異なるだけで軌道は変わらない.
+  
+\end{qboxok}
+
+\begin{qboxok}
+  {p93 \( f(q,t) = ε Λ (q,t) + 𝒪(ε^2) \) について}
+  {昌詩}
+  {蟹江}
+
+  \( f \)の展開だけ \( ε \)  の1次から始まっているのはなぜ？
+  そもそもどういう展開？
+
+  \qsep
+
+  \( f \) というのはすべての変換に対して同じ関数ではなく,変換に対するパラメータの関数になっている.
+  パラメータに依存しているときそのパラメータに関するテイラー展開を実行することができる.
+  \( q \) で作用が停留でなくとも
+  \[f(q,t)=L(Q, \dot{Q},t) - L(q, \dot{q},t) = ε \sum_{i=1}^{N} \left( F_i(q,t) \diffp{L}{q_i} + \diff{F_i(q,t)}{t} \diff{L}{\dot{q}_i} \right) + 𝒪(ε^2) \]
+  が成立する.両辺に
+  \( 1/ε \) を掛けて \( ε \to 0 \) を考える.
+  \begin{align*}
+    \frac{f(q,t)}{ε} =& \sum_{i=1}^{N} \left( F_i(q,t) \diffp{L}{q_i} + \diff{F_i(q,t)}{t} \diff{L}{\dot{q}_i} \right) + 𝒪(ε)\\
+              \xrightarrow{ε \to 0} & \sum_{i=1}^{N} \left( F_i(q,t) \diffp{L}{q_i} + \diff{F_i(q,t)}{t} \diff{L}{\dot{q}_i} \right)
+  \end{align*}
+  右辺が収束しているため,左辺が発散しないために \( f(q,t) \) は \( ε \)の
+  0次の項が存在しない.
+
+\end{qboxok}
+
+\begin{qboxok}
+  {p95 対称性の独立}
+  {蟹江}
+  {蟹江}
+
+  対称性ってそれぞれが独立だと思っていたけどそうじゃないんじゃね？
+
+  \qsep
+
+  依存関係にある対称性が存在します.
+  例えばガリレイ対称性が成立するならば、空間並進対称性が成立します.
+  p99のガリレイ対称性に対応しているネーター保存量
+  \footnote{
+            章末問題の一定の外力が加わっている場合についても,
+            ガリレイ対称性のネーター保存量の時間微分を行うことにより,
+            並進対称性並進対称性が要請されていることがわかる.
+            }
+  \( \sum_{i=1}^{M}( m_i \symbfit{r} _i - t \symbfit{P} ) \) の時間微分はゼロになるはずで,
+  \begin{align*}
+    \diff**t{\sum_{i=1}^{M} m_i \symbfit{r} _i - t \symbfit{P} }
+    =&
+    \underbrace{\sum_{i=1}^{M} m_i \dot{\symbfit{r}} _i}_{= \symbfit{P} }   - \symbfit{P} - t \dot{\symbfit{P}} \\
+    =&
+    -t \dot{\symbfit{P}}=0
+  \end{align*}
+
+  という式変形より,運動量保存が成立する.
+  連続対称性とネーター保存量は同値の関係にあるため,
+  空間並進対称性があるといえる.
+\end{qboxok}
+
+\begin{qboxok}
+  {p188 一行目 }
+  {蟹江}
+  {蟹江}
+
+  \( \dot{Q}_i (t_f) - \dot{q}_i (t_f) = 𝒪(ε) \)って何から言えるんですか.
+
+  \qsep
+
+  \( Q_i (t) =  ε F_i q_i (t) +𝒪(ε) \) より自明.
+
+\end{qboxok}
+
+\begin{qboxok}
+  {p108 式(4.86)}
+  {蟹江}
+  {蟹江}
+
+  二式目で \( L(q+δq, \dot{q} + δ \dot{q} ,t) \)が \( L(q, \dot{q} ,t) \)  
+  になっていること,そして最後\( \int_{t_f}^{t_f + ε} \dl{t} L(q, \dot{q} ,t)  = L(q, \dot{q},t) \big|_{t=t_f}  \) 
+  に変わったこと,意味がわからん.
+
+  \qsep
+
+  \begin{align*}
+    \int_{t_f}^{t_f + ε} \dl{t}  L(q+δq, \dot{q} + δ \dot{q} ,t) 
+    =& \int_{t_f}^{t_f + ε} \dl{t} 
+       \left[  
+        L(q, \dot{q} ,t) + \sum_{i=1}^{N}
+        \left( 
+          δq_i \diffp{L}{q_i} + δ\dot{q}_i \diffp{L}{\dot{q}_i} 
+        \right)  
+       \right]\\
+    =& \int_{t_f}^{t_f + ε} \dl{t}  L(q, \dot{q} ,t) 
+       + \int_{t_f}^{t_f + ε} \dl{t} \, δq_i \Biggl(\sum_{i=1}^{N} \underbrace{\diffp{L}{q_i} - \diff**t{\diffp{L}{\dot{q}_i}[]}}_{\text{オイラー・ラグランジュ方程式}} \Biggr)\\
+     & + δq_i(t_f + ε) \diffp{L}{\dot{q}_i}\Bigg|_{t=t_f + ε} - δq_i(t_f) \diffp{L}{\dot{q}_i}\Bigg|_{t=t_f} + 𝒪(ε^2)\\
+    =& \int_{t_f}^{t_f + ε} \dl{t}  L(q, \dot{q} ,t) 
+      + ε\underbrace{δ\dot{q}_i(t_f)}_{= - ε \ddot{q}_i (t_f)}  \diffp{L}{\dot{q}_i}\bigg|_{t=t_f} \\
+     &+ ε\underbrace{δq_i(t_f)}_{= - ε \dot{q}_i (t_f)}  \diff**t{\diffp{L}{\dot{q}_i}[]}\bigg|_{t=t_f} + 𝒪(ε^2)\\
+    =& \int_{t_f}^{t_f + ε} \dl{t}  L(q, \dot{q} ,t) +𝒪(ε^2)    
+  \end{align*}
+  また,\( \int_{t_f}^{t_f + ε} \dl{t} L(q, \dot{q} ,t)  = L(q, \dot{q},t) \big|_{t=t_f}  \)については
+  については
+  \[  \int_{a}^{a+ε} \dl{x} f'(x) = f(a+ε) - f(a) = εf'(a) + 𝒪(ε^2)\]
+  という一般論より自明.
+\end{qboxok}
+
+\begin{qboxok}
+  {p111 回転変換の\( \symbfit{\epsilon}  \) による一次近似}
+  {蟹江,昌詩}
+  {蟹江}
+ 
+  \[ \symbfit{r}' = \symbfit{r} + \symbfit{\epsilon} \times \symbfit{r}   \]
+  この変換と回転操作との関係性がよくわからない. 
+
+  \qsep
+
+  \begin{align*}
+    \symbfit{r}' 
+    =& R(\symbfit{\epsilon}) \symbfit{r} 
+    = (I + \sum_{α} J^α \epsilon^α) \symbfit{r} 
+      + 𝒪(\epsilon^2)\\
+    =&\symbfit{r} + \sum_{α,β,γ} \symbfit{e}^α r^γ [J^α]^{βγ} \epsilon^α 
+      + 𝒪(\epsilon^2)\\
+    =&\symbfit{r} + \sum_{α,β,γ} \symbfit{e}^α ε^{αβγ} \epsilon^α r^γ 
+      +𝒪(\epsilon^2)\\
+    =& \symbfit{r} + \symbfit{\epsilon} \times \symbfit{r} +𝒪(\epsilon^2) 
+  \end{align*}
+  \footnote{ この質問だけ \( ε, \epsilon \)を区別して使っている.}
+  なお,これを一成分について行ったものは(4.40)である.
   
 \end{qboxok}
 
@@ -328,26 +457,26 @@
 \end{hako}
 
 
-\begin{qboxok}
-  {p145 6.1.1 ラグランジアンの凸性}
-  {蟹江}
-  {蟹江}
+% \begin{qboxok}
+%   {p145 6.1.1 ラグランジアンの凸性}
+%   {蟹江}
+%   {蟹江}
 
-  ラグランジアンからハミルトニアンの変換は,ルジャンドル変換になっているが,
-  ラグランジアンが正準運動量に関して凸関数になっているという
-  のは何から言えるんだろうか.
+%   ラグランジアンからハミルトニアンの変換は,ルジャンドル変換になっているが,
+%   ラグランジアンが正準運動量に関して凸関数になっているという
+%   のは何から言えるんだろうか.
 
-  \qsep 
+%   \qsep 
 
-  古典力学のラグランジアンに関しては
-  \begin{equation}
-    L(q, \dot{q},t)=K-U= \frac{1}{2}m \dot{q}^2 -U(q)
-    \label{kotenlag}
-  \end{equation}
-  であるから,
-  \[ \diffp[2]L{\dot{q}} = m >0 \]
-  となり下に凸であることが保証されている.
-  ただし,式\eqref{kotenlag}は直交座標であることを仮定していたりとガバ論理なのでこの回答には修正が必要.
-\end{qboxok}
+%   古典力学のラグランジアンに関しては
+%   \begin{equation}
+%     L(q, \dot{q},t)=K-U= \frac{1}{2}m \dot{q}^2 -U(q)
+%     \label{kotenlag}
+%   \end{equation}
+%   であるから,
+%   \[ \diffp[2]L{\dot{q}} = m >0 \]
+%   となり下に凸であることが保証されている.
+%   ただし,式\eqref{kotenlag}は直交座標であることを仮定していたりとガバ論理なのでこの回答には修正が必要.
+% \end{qboxok}
 
 \end{document}
