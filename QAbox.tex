@@ -375,7 +375,7 @@
      &+ ε\underbrace{δq_i(t_f)}_{= - ε \dot{q}_i (t_f)}  \diff**t{\diffp{L}{\dot{q}_i}[]}\bigg|_{t=t_f} + 𝒪(ε^2)\\
     =& \int_{t_f}^{t_f + ε} \dl{t}  L(q, \dot{q} ,t) +𝒪(ε^2)    
   \end{align*}
-  また,\( \int_{t_f}^{t_f + ε} \dl{t} L(q, \dot{q} ,t)  = L(q, \dot{q},t) \big|_{t=t_f}  \)については
+  また,\( \int_{t_f}^{t_f + ε} \dl{t} L(q, \dot{q} ,t)  = εL(q, \dot{q},t) \big|_{t=t_f} + 𝒪(ε^2)  \)
   については
   \[  \int_{a}^{a+ε} \dl{x} f'(x) = f(a+ε) - f(a) = εf'(a) + 𝒪(ε^2)\]
   という一般論より自明.
@@ -457,26 +457,64 @@
 \end{hako}
 
 
-% \begin{qboxok}
-%   {p145 6.1.1 ラグランジアンの凸性}
-%   {蟹江}
-%   {蟹江}
+\begin{qboxok}
+  {ハミルトンの主関数の時間偏微分}
+  {蟹江}
+  {蟹江}
 
-%   ラグランジアンからハミルトニアンの変換は,ルジャンドル変換になっているが,
-%   ラグランジアンが正準運動量に関して凸関数になっているという
-%   のは何から言えるんだろうか.
+  ハミルトンの主関数を時間
+  \( t_i,t_f \) で偏微分したときに,それぞれの時刻でのハミルトニアン
+  が出てくるのはどんな意味があるんだろうか.
 
-%   \qsep 
+  \qsep
 
-%   古典力学のラグランジアンに関しては
-%   \begin{equation}
-%     L(q, \dot{q},t)=K-U= \frac{1}{2}m \dot{q}^2 -U(q)
-%     \label{kotenlag}
-%   \end{equation}
-%   であるから,
-%   \[ \diffp[2]L{\dot{q}} = m >0 \]
-%   となり下に凸であることが保証されている.
-%   ただし,式\eqref{kotenlag}は直交座標であることを仮定していたりとガバ論理なのでこの回答には修正が必要.
-% \end{qboxok}
+  一つの解釈として時間並進対称性のネーター保存量が,系のエネルギー（ハミルトニアン）
+  に対応するからと考えることができる.
+  以下で簡単のため,
+  \( t \)に陽に依存しないラグランジアンについての具体的な導出をする.
+
+  \[
+    \begin{cases}
+      t'= t+ε\\
+      Q(t') =q(t)
+    \end{cases}
+  \]
+  という変換を考える.
+  このとき\( f(q,t) = 0 \, (Λ=0) \)となる.
+
+  \begin{align*}
+    0 
+    =& S(q(t_f) , q(t_i),t_f+ε,t_i+ε) - S(q(t_f) , q(t_i),t_f,t_i)\\
+    =&ε \diffp{S}{t_F} + ε \diffp{S}{t_i} + 𝒪(ε^2)\\
+    =& ε\left( - \sum_{i=1}^{N} \dot{q}_i \diffp{L(q, \dot{q},t)}{\dot{q}_i} - L(q, \dot{q},t) \Bigg|_{t=t_f}  +\sum_{i=1}^{N} \dot{q}_i \diffp{L(q, \dot{q},t)}{\dot{q}_i} - L(q, \dot{q},t)\Bigg|_{t=t_i}  \right)
+  \end{align*}
+  よって
+  \[\sum_{i=1}^{N} \dot{q}_i \diffp{L(q, \dot{q},t)}{\dot{q}_i} - L(q, \dot{q},t) \Bigg|_{t=t_i} = \sum_{i=1}^{N} \dot{q}_i \diffp{L(q, \dot{q},t)}{\dot{q}_i} - L(q, \dot{q},t) \Bigg|_{t=t_f}\]
+  エネルギーが保存されている.
+\end{qboxok}
+
+\begin{qboxok}
+  {p148 ハミルトニアンに偏微分を行うときのラグランジアン}
+  {昌詩}
+  {全員}
+
+  \[
+    \diffp{L(q, \dot{q}(q,p,t) ,t)}{t} = 
+    \Biggl(
+      \sum_{j=1}^{N} \underbrace{\diffp{L(q, \dot{q}, t)}{p_i}}_{=p_j} 
+      \diffp{\dot{q}_j(q,p,t)}{t} 
+    \Biggr)
+    \Bigg|_{\dot{q}= \dot{q}(q,p,t)}  
+  \]
+  ここがよくわからない
+
+  \qsep
+
+  \( t \) の偏微分となっているが,
+  \( L \) の引数である \( \dot{q} \) はハミルトニアンの形式では従属変数として扱われる.
+  したがって
+  合成関数の微分を \( \dot{q}(q,p,t) \) という引数について行う必要がある.
+
+\end{qboxok}
 
 \end{document}
