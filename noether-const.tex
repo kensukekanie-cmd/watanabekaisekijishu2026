@@ -1,0 +1,75 @@
+\documentclass{jlreq}
+\usepackage{graphicx,tcolorbox}
+\usepackage{mathtools,diffcoeff,unicode-math}
+\setmathfont{NewComputerModernMath}
+\newtcolorbox{hako}[1]{colframe=black,colback=white,coltitle=black,colbacktitle=white,boxrule=0.8pt,arc=0mm,title={\textbf{#1}},}
+\usepackage[thicklines]{cancel}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  \LARGE
+  2次のネーター保存量について
+\end{center}
+\vspace{1\baselineskip}
+
+オイラー・ラグランジュ方程式より,
+\begin{align}
+  \diff**t{\diffp{L}{\dot{q}_i}[]} =& \diffp{L}{q_i} \notag\\
+  \xrightarrow{q'_i=q_i+ εF_i} 
+  \diff**t{
+            \sum_{j=1}^{N} \left( F_j \diffp{L}{q_j,\dot{q}_i} + \dot{F}_j \diffp{L}{\dot{q}_j,\dot{q}_i}  \right)
+            }
+    =& \sum_{j=1}^{N} \left( F_j \diffp{L}{q_j,q_i} + \dot{F}_j \diffp{L}{\dot{q}_j,q_i}  \right)
+  \label{ELeq}
+\end{align}
+\( \hat{X} := \sum_{j=1}^{N}  \left( F_j \diffp*{}{q_j} + \dot{F}_j  \diffp*{}{\dot{q}_j}\right)\)
+とすると式 \eqref{ELeq}は
+\begin{equation}
+  \diff**t{\left( \hat{X} \diffp{L}{\dot{q}_i} \right)} = \hat{X} \diffp{L}{q_i}
+  \label{ELeq2}
+\end{equation}
+と表すことができる.
+これを用いると,以下のような式が成立する.
+\begin{align}
+  &\sum_{i,j=1}^{N} \left( F_i F_j \diffp{L}{q_i,q_j} + 2 F_i \dot{F}_j \diffp{L}{q_i,\dot{q}_j} + \dot{F}_i \dot{F}_j \diffp{L}{\dot{q}_i,\dot{q}_j} \right)\notag\\
+  =&\sum_{i,j=1}^{N} \left( F_i F_j \diffp{L}{q_i,q_j} +  F_i \dot{F}_j \diffp{L}{q_i,\dot{q}_j} + F_j \dot{F}_i \diffp{L}{q_j,\dot{q}_i} + \dot{F}_j \dot{F}_i \diffp{L}{\dot{q}_j,\dot{q}_i} \right)\notag\\
+  =&\sum_{i,j=1}^{N} \Bigl(F_i \underbrace{\hat{X} \diffp{L}{q_i}}_{= \diff**t{\hat{X} \diffp{L}{\dot{q}_i}} }  + \dot{F}_i \hat{X} \diffp{L}{\dot{q}_i} \Bigr) \quad (∵\text{式\eqref{ELeq2}})\notag \\
+  =& \diff**t{\sum_{i=1}^{N} F_i \hat{X} \diffp{L}{\dot{q}_i}}
+  \label{bbnmtm}
+\end{align}
+
+今, \( q'_i = q_if ε F_i + ε^2 G_i \) という変換に対してラグランジアンが対称性を持つと仮定すると,
+\begin{align}
+  L(q', \dot{q}',t) - L(q, \dot{q},t) =& \diff**t{f(q,t)}\notag\\
+  =& ε \diff**t{Λ(q,t)} + \frac{1}{2} ε^2 \diff**t{Λ'(q,t)} + 𝒪(ε^3) 
+  \label{εtenkai}
+\end{align}
+のような \( f \) が存在して,
+\( ε \) で展開することができる.
+\( f \) は 連続なパラメータ\( ε \) に依存しているため, \( Λ,Λ' \) は
+\[
+  \diffp{f(q,t)}{ε} \Bigg|_{ε=0} = Λ(q,t) ,\quad 
+  \diffp{f(q,t)}{ε:2} \Bigg|_{ε=0} =Λ'(q,t)
+\]
+と記せる.
+
+\( q', \dot{q}' \) についてテイラー展開を行う.
+\begin{align}
+  L(q', \dot{q}',t) - L(q, \dot{q},t) 
+  =& ε \diff**t{\sum_{i=1}^{N} \left( F_i \diffp{L}{\dot{q}_i} \right)}
+    + ε^2 \diff**t{\sum_{i=1}^{N}\left(G_i \diffp{L}{\dot{q}_i} + \frac{1}{2} F_i \hat{X} \diffp{L}{\dot{q}_i}   \right)}  + 𝒪(ε^3)
+     \quad  (∵\text{式 \eqref{bbnmtm}})
+\label{tenkai2}
+\end{align}
+
+式 \eqref{εtenkai},\eqref{tenkai2}より,
+\begin{align}
+  \mathcal{Q} :=& \sum_{i=1}^{N} F_i \diffp{L}{\dot{q}_i} - Λ\\
+  \mathcal{Q}' :=& \sum_{i=1}^{N} G_i \diffp{L}{\dot{q}_i} + \frac{1}{2} \left(\sum_{i=1}^{N} F_i \hat{X} \diffp{L}{\dot{q}_i} - Λ' \right) 
+\end{align}
+とすると \( \mathcal{Q},\mathcal{Q}' \) は保存量となる.
+
+\end{document} 
