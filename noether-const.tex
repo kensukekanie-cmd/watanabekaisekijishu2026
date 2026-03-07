@@ -6,14 +6,16 @@
 \usepackage[thicklines]{cancel}
 \usepackage[hidelinks]{hyperref}
 \setlength{\parindent}{0pt}
+\usepackage{luatexja-fontspec}
+\setmainjfont[BoldFont=Yu Mincho Demibold]{Yu Mincho}
 
 \begin{document}
 
 \begin{center}
   \LARGE
-  2次のネーター保存量について
+ \textbf{ 2次のネーター保存量について}
 \end{center}
-\vspace{1\baselineskip}
+\vspace{1.5\baselineskip}
 
 オイラー・ラグランジュ方程式より,
 \begin{align}
@@ -41,7 +43,7 @@
   \label{bbnmtm}
 \end{align}
 
-今, \( q'_i = q_if ε F_i + ε^2 G_i \) という変換に対してラグランジアンが対称性を持つと仮定すると,
+今, \( q'_i = q_i  + ε F_i + ε^2 G_i \) という変換に対してラグランジアンが対称性を持つと仮定すると,
 \begin{align}
   L(q', \dot{q}',t) - L(q, \dot{q},t) =& \diff**t{f(q,t)}\notag\\
   =& ε \diff**t{Λ(q,t)} + \frac{1}{2} ε^2 \diff**t{Λ'(q,t)} + 𝒪(ε^3) 
